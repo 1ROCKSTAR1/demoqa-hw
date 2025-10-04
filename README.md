@@ -27,16 +27,11 @@
 ## 📁 Структура проекта
 
 📁 homeWork-project/
-│
-├── 📁 src/
-│ └── 📁 test/
-│ └── 📁 java/
-│ └── 📁 test/
+├── 📁 src/test/java/test/
 │ ├── 🟢 CssXpathExample.java
 │ ├── 🟢 SimpleJunitTest.java
 │ ├── 🟢 TextBoxTests.java
 │ └── 🟢 HomeWorkTest.java
-│
 ├── 📄 build.gradle
 ├── 📄 .gitignore
 └── 📄 README.md
