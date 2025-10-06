@@ -1,12 +1,17 @@
-# Default ignored files
-/shelf/
-/workspace.xml
+HELP.md
+build/
+!**/src/main/**
+!**/src/test/**
+.kotlin
 
+### IntelliJ IDEA ###
 .idea
 *.iws
-*.impl
+*.iml
 *.ipr
 
+### Gradle ###
 .gradle
 
+### Logs ###
 *.log
