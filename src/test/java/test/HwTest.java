@@ -4,8 +4,6 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -24,17 +22,20 @@ public class HwTest {
     void fillFormTest() {
         open("/automation-practice-form");
 
+        executeJavaScript("$('footer').remove();");
+        executeJavaScript("$('#fixedban').remove();");
+
         $("#firstName").setValue("Tom");
         $("#lastName").setValue("Adams");
         $("#userEmail").setValue("tomadams99@gmail.com");
-        $("#genterWrapper label[for='gender-radio-1']").click();
+        $("[for=gender-radio-1]").click();
         $("#userNumber").setValue("1234567899");
         $("#dateOfBirthInput").click();
-        $("div[aria-label=\"Choose Sunday, October 5th, 2025\"]").click();
+        $(".react-datepicker__day--005").click();
         $("#subjectsInput").setValue("Chemistry").pressEnter();
-        $("#hobbiesWrapper label[for='hobbies-checkbox-1']").click();
-        $("#uploadPicture").uploadFile(new File("src/test/resources/mif10.jpg"));
-        $("textarea[placeholder=\"Current Address\"]").setValue("Jakarta");
+        $("label[for='hobbies-checkbox-1']").click();
+        $("#uploadPicture").uploadFromClasspath("mif10.jpg");
+        $("#currentAddress").setValue("Jakarta");
         executeJavaScript("window.scrollBy(0, 300);");
         $(byText("Select State")).click();
         $("#react-select-3-option-3").click();
