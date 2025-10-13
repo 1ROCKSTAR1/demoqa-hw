@@ -36,7 +36,7 @@ public class PomTests extends BaseTest {
                 .checkAssertDateOfBirth()
                 .checkAssertSubjects()
                 .checkAssertHobbies()
-                .checkAssertPucture()
+                .checkAssertPicture()
                 .checkAssertAddress()
                 .checkAssertStateAndCity();
     }

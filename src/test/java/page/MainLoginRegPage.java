@@ -157,7 +157,7 @@ public class MainLoginRegPage {
         return this;
     }
 
-    public MainLoginRegPage checkAssertPucture() {
+    public MainLoginRegPage checkAssertPicture() {
         ModalFinishWindowComponent finishWindowComponent = new ModalFinishWindowComponent();
         finishWindowComponent.checkModalFinishWindow("Picture","mif10.jpg");
         return this;
