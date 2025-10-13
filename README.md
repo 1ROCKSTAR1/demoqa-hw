@@ -1,4 +1,4 @@
-# 🎯 HomeWork 3
+# 🎯 HomeWork 3 + 4
 
 <div align="center">
 
@@ -26,15 +26,21 @@
 
 ## 📁 Структура проекта
 
-📁 demoqa-hw/
+📁 homeWork-project/
 
 ├── 📁 src/
 
-│   └── 📁 test/
+│     └── 📁 test/
 
-│       ├── 📁 java/
+│           ├── 📁 java/
 
-│       │   ├── 📁 page/
+│             │   ├── 📁 page/
+
+│       │   │   ├── 📁 component/
+
+│       │   │   │   ├── 🟢 CalendarComponent.java
+
+│       │   │   │   └── 🟢 ModalFinishWindowComponent.java
 
 │       │   │   └── 🟢 MainLoginRegPage.java
 
@@ -43,6 +49,8 @@
 │       │       ├── 🟢 CssXpathExample.java
 
 │       │       ├── 🟢 HwTest.java
+
+│       │       ├── 🟢 PomTests.java
 
 │       │       ├── 🟢 SimpleJunitTest.java
 
