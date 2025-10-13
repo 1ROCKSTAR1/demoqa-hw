@@ -2,6 +2,7 @@ package test;
 
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
@@ -19,6 +20,7 @@ public class HwTest {
     }
 
     @Test
+    @DisplayName("Первый автотест (по 3-му уроку)")
     void fillFormTest() {
         open("/automation-practice-form");
 
