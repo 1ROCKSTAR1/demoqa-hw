@@ -27,22 +27,41 @@
 ## 📁 Структура проекта
 
 📁 homeWork-project/
+
 ├── 📁 src/
+
 │   └── 📁 test/
+
 │       ├── 📁 java/
+
 │       │   ├── 📁 page/
+
 │       │   │   ├── 📁 component/
+
 │       │   │   │   ├── 🟢 CalendarComponent.java
+
 │       │   │   │   └── 🟢 ModalFinishWindowComponent.java
+
 │       │   │   └── 🟢 MainLoginRegPage.java
+
 │       │   └── 📁 test/
+
 │       │       ├── 🟢 CssXpathExample.java
+
 │       │       ├── 🟢 HwTest.java
+
 │       │       ├── 🟢 PomTests.java
+
 │       │       ├── 🟢 SimpleJunitTest.java
+
 │       │       └── 🟢 TextBoxTests.java
+
 │       └── 📁 resources/
+
 │           └── 🖼️ mif10.jpg
+
 ├── 📄 build.gradle
+
 ├── 📄 .gitignore
+
 └── 📄 README.md
