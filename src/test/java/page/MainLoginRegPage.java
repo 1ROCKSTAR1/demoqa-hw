@@ -10,21 +10,21 @@ import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 public class MainLoginRegPage {
 
-    private final SelenideElement firstNameField = $("#firstName");
-    private final SelenideElement lastNameField = $("#lastName");
-    private final SelenideElement emailField = $("#userEmail");
-    private final SelenideElement maleGenderRadioButton = $("[for=gender-radio-1]");
-    private final SelenideElement phoneNumberField = $("#userNumber");
-    private final SelenideElement dateOfBirthField = $("#dateOfBirthInput");
-    private final SelenideElement subjectsField = $("#subjectsInput");
-    private final SelenideElement hobbySportsRadioButton = $("label[for='hobbies-checkbox-1']");
-    private final SelenideElement uploadPictureArea = $("#uploadPicture");
-    private final SelenideElement currentAddressField = $("#currentAddress");
-    private final SelenideElement selectStateField = $(byText("Select State"));
-    private final SelenideElement rajasthanOption = $("#react-select-3-option-3");
-    private final SelenideElement selectCityField = $(byText("Select City"));
-    private final SelenideElement jaipurOption = $("#react-select-4-option-0");
-    private final SelenideElement submitButton = $("#submit");
+    private final SelenideElement firstNameField = $("#firstName"),
+                lastNameField = $("#lastName"),
+                emailField = $("#userEmail"),
+                maleGenderRadioButton = $("[for=gender-radio-1]"),
+                phoneNumberField = $("#userNumber"),
+                dateOfBirthField = $("#dateOfBirthInput"),
+                subjectsField = $("#subjectsInput"),
+                hobbySportsRadioButton = $("label[for='hobbies-checkbox-1']"),
+                uploadPictureArea = $("#uploadPicture"),
+                currentAddressField = $("#currentAddress"),
+                selectStateField = $(byText("Select State")),
+                rajasthanOption = $("#react-select-3-option-3"),
+                selectCityField = $(byText("Select City")),
+                jaipurOption = $("#react-select-4-option-0"),
+                submitButton = $("#submit");
 
     public MainLoginRegPage navigateToTheForm() {
         open("/automation-practice-form");
