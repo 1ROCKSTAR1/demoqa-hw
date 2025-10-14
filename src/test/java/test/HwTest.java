@@ -38,8 +38,7 @@ public class HwTest {
         $("label[for='hobbies-checkbox-1']").click();
         $("#uploadPicture").uploadFromClasspath("mif10.jpg");
         $("#currentAddress").setValue("Jakarta");
-        executeJavaScript("window.scrollBy(0, 300);");
-        $(byText("Select State")).click();
+        $(byText("Select State")).scrollTo().click();
         $("#react-select-3-option-3").click();
         $(byText("Select City")).click();
         $("#react-select-4-option-0").click();
