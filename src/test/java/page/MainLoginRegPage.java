@@ -6,6 +6,8 @@ import page.component.CalendarComponent;
 import page.component.ModalFinishWindowComponent;
 import utils.RandomStringUtil;
 
+import java.util.Map;
+
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
@@ -16,21 +18,15 @@ public class MainLoginRegPage {
     private final SelenideElement firstNameField = $("#firstName"),
                                   lastNameField = $("#lastName"),
                                   emailField = $("#userEmail"),
-                                  maleGenderRadioButton = $("[for=gender-radio-1]"),
                                   phoneNumberField = $("#userNumber"),
                                   dateOfBirthField = $("#dateOfBirthInput"),
                                   subjectsField = $("#subjectsInput"),
-                                  hobbySportsRadioButton = $("label[for='hobbies-checkbox-1']"),
                                   uploadPictureArea = $("#uploadPicture"),
                                   currentAddressField = $("#currentAddress"),
-                                  selectStateField = $(byText("Select State")),
-                                  rajasthanOption = $("#react-select-3-option-3"),
-                                  selectCityField = $(byText("Select City")),
-                                  jaipurOption = $("#react-select-4-option-0"),
                                   submitButton = $("#submit");
 
-    private final ElementsCollection genderRadioButtons =
-            $$("[for^=gender-radio]");
+    private final ElementsCollection genderRadioButtons = $$("[for^=gender-radio]"),
+                                     hobbiesCheckboxes = $$("label[for^='hobbies-checkbox-']");
 
     String firstName = getRandomFirstName();
     String lastName = getRandomLastName();
@@ -38,6 +34,10 @@ public class MainLoginRegPage {
     String phoneNumber = getRandomPhoneNumber();
     String subject = getRandomSubjects();
     String address = getRandomAddress();
+    String selectedGender;
+    String selectedHobby;
+    String selectedState;
+    String selectedCity;
 
     public MainLoginRegPage navigateToTheForm() {
         open("/automation-practice-form");
@@ -62,8 +62,11 @@ public class MainLoginRegPage {
     }
 
     public MainLoginRegPage pickGender() {
-        int randomIndex = RandomStringUtil.getRandomIndex(genderRadioButtons.size());
-        genderRadioButtons.get(randomIndex).click();
+        int randomIndex = getRandomIndex(3);//;
+        SelenideElement selectedButton = genderRadioButtons.get(randomIndex);
+        selectedButton.click();
+
+        selectedGender = selectedButton.getText();
         return this;
     }
 
@@ -85,7 +88,10 @@ public class MainLoginRegPage {
     }
 
     public MainLoginRegPage setHobby() {
-        hobbySportsRadioButton.click();
+        int randomIndex = getRandomIndex(3);
+        SelenideElement selectedCheckbox = hobbiesCheckboxes.get(randomIndex);
+        selectedCheckbox.click();
+        selectedHobby = selectedCheckbox.getText();
         return this;
     }
 
@@ -99,23 +105,18 @@ public class MainLoginRegPage {
         return this;
     }
 
-    public MainLoginRegPage scrollToLocationFieldsAndClickOnState() {
+    public MainLoginRegPage selectRandomStateAndCity() {
+
+        Map.Entry<String, String> stateCity = RandomStringUtil.getRandomStateAndCity();
+        this.selectedState = stateCity.getKey();
+        this.selectedCity = stateCity.getValue();
+
         $(byText("Select State")).scrollTo().click();
-        return this;
-    }
+        $(byText(selectedState)).click();
 
-    public MainLoginRegPage chooseFourthStateOption() {
-        rajasthanOption.click();
-        return this;
-    }
+        $(byText("Select City")).click();
+        $(byText(selectedCity)).click();
 
-    public MainLoginRegPage clickOnSelectCity() {
-        selectCityField.click();
-        return this;
-    }
-
-    public MainLoginRegPage chooseFirstCityOption() {
-        jaipurOption.click();
         return this;
     }
 
@@ -138,7 +139,7 @@ public class MainLoginRegPage {
 
     public MainLoginRegPage checkAssertGender() {
         ModalFinishWindowComponent finishWindowComponent = new ModalFinishWindowComponent();
-        finishWindowComponent.checkModalFinishWindow("Gender","Male");
+        finishWindowComponent.checkModalFinishWindow("Gender",selectedGender);
         return this;
     }
 
@@ -162,7 +163,7 @@ public class MainLoginRegPage {
 
     public MainLoginRegPage checkAssertHobbies() {
         ModalFinishWindowComponent finishWindowComponent = new ModalFinishWindowComponent();
-        finishWindowComponent.checkModalFinishWindow("Hobbies","Sports");
+        finishWindowComponent.checkModalFinishWindow("Hobbies",selectedHobby);
         return this;
     }
 
@@ -180,7 +181,7 @@ public class MainLoginRegPage {
 
     public MainLoginRegPage checkAssertStateAndCity() {
         ModalFinishWindowComponent finishWindowComponent = new ModalFinishWindowComponent();
-        finishWindowComponent.checkModalFinishWindow("State and City","Rajasthan Jaipur");
+        finishWindowComponent.checkModalFinishWindow("State and City",selectedState + " " + selectedCity);
         return this;
     }
 }
