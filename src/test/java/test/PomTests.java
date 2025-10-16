@@ -4,15 +4,16 @@ import base.BaseTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import page.MainLoginRegPage;
-import page.component.CalendarComponent;
 
 public class PomTests extends BaseTest {
+
+    MainLoginRegPage mainLoginRegPage = new MainLoginRegPage();
 
     @Test
     @DisplayName("Первый автотест с POM для DEMOQA")
     public void firstPositiveFormTest() {
 
-        MainLoginRegPage mainLoginRegPage = new MainLoginRegPage()
+        mainLoginRegPage
                 .navigateToTheForm()
                 .fillFirstName()
                 .fillLastName()
@@ -25,7 +26,8 @@ public class PomTests extends BaseTest {
                 .uploadPicture()
                 .setCurrentAddress()
                 .selectRandomStateAndCity()
-                .clickOnSubmit()
+                .clickOnSubmit();
+        mainLoginRegPage
                 .checkAssertFirstAndLastName()
                 .checkAssertEmail()
                 .checkAssertGender()
@@ -41,13 +43,15 @@ public class PomTests extends BaseTest {
     @Test
     @DisplayName("Автотест с POM для DEMOQA с минимальным набором данных")
     public void minimalDataTest() {
-        MainLoginRegPage mainLoginRegPage = new MainLoginRegPage()
+
+        mainLoginRegPage
                 .navigateToTheForm()
                 .fillFirstName()
                 .fillLastName()
                 .pickGender()
                 .fillPhoneNumber()
-                .clickOnSubmit()
+                .clickOnSubmit();
+        mainLoginRegPage
                 .checkAssertFirstAndLastName()
                 .checkAssertGender()
                 .checkAssertPhoneNumber();
@@ -56,12 +60,14 @@ public class PomTests extends BaseTest {
     @Test
     @DisplayName("Негативный автотест с POM для DEMOQA с незаполненным полем Last Name")
     public void negativeTest() {
-        MainLoginRegPage mainLoginRegPage = new MainLoginRegPage()
+
+        mainLoginRegPage
                 .navigateToTheForm()
                 .fillFirstName()
                 .pickGender()
                 .fillPhoneNumber()
-                .clickOnSubmit()
+                .clickOnSubmit();
+        mainLoginRegPage
                 .checkAssertFirstAndLastName()
                 .checkAssertGender()
                 .checkAssertPhoneNumber();

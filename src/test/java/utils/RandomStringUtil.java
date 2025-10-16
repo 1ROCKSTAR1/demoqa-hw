@@ -10,34 +10,31 @@ import java.util.Map;
 
 public class RandomStringUtil {
 
+    static Faker stringFaker = new Faker(new Locale("en-AU"));
+    static Faker dataFaker = new Faker();
+
     public static String getRandomFirstName() {
-      Faker faker = new Faker(new Locale("en-AU"));
-      return faker.name().firstName();
+        return stringFaker.name().firstName();
     }
 
     public static String getRandomLastName() {
-        Faker faker = new Faker(new Locale("en-AU"));
-        return faker.name().lastName();
+        return stringFaker.name().lastName();
     }
 
     public static String getRandomEmail() {
-        Faker faker = new Faker(new Locale("en-AU"));
-        return faker.internet().emailAddress();
+        return stringFaker.internet().emailAddress();
     }
 
     public static String getRandomPhoneNumber() {
-        Faker faker = new Faker();
-        return faker.numerify("##########");
+        return dataFaker.numerify("##########");
     }
 
     public static int getRandomIndex(int maxSize) {
-        Faker faker = new Faker();
-        return faker.number().numberBetween(0, maxSize);
+        return dataFaker.number().numberBetween(0, maxSize);
     }
 
     public static String getRandomStringFromArray(String[] array) {
-        Faker faker = new Faker();
-        int randomIndex = faker.number().numberBetween(0, array.length);
+        int randomIndex = dataFaker.number().numberBetween(0, array.length);
         return array[randomIndex];
     }
 
@@ -47,8 +44,7 @@ public class RandomStringUtil {
     }
 
     public static String getRandomAddress() {
-        Faker faker = new Faker(new Locale("en-AU"));
-        return faker.address().secondaryAddress();
+        return stringFaker.address().secondaryAddress();
     }
 
     private static final Map<String, List<String>> STATE_CITY_MAP = Map.of(
@@ -78,16 +74,14 @@ public class RandomStringUtil {
     }
 
     private static String getRandomStringFromList(List<String> list) {
-        Faker faker = new Faker();
-        int randomIndex = faker.number().numberBetween(0, list.size());
+        int randomIndex = stringFaker.number().numberBetween(0, list.size());
         return list.get(randomIndex);
     }
 
     public static LocalDate getRandomBirthDate() {
-        Faker faker = new Faker();
-        int randomYear = faker.number().numberBetween(1901, 2015);
-        int randomMonth = faker.number().numberBetween(1, 13);
-        int randomDay = faker.number().numberBetween(1, 29);
+        int randomYear = dataFaker.number().numberBetween(1901, 2015);
+        int randomMonth = dataFaker.number().numberBetween(1, 13);
+        int randomDay = dataFaker.number().numberBetween(1, 29);
 
         return LocalDate.of(randomYear, randomMonth, randomDay);
     }
