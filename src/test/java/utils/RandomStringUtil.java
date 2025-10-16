@@ -2,6 +2,7 @@ package utils;
 
 import com.github.javafaker.Faker;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -80,5 +81,14 @@ public class RandomStringUtil {
         Faker faker = new Faker();
         int randomIndex = faker.number().numberBetween(0, list.size());
         return list.get(randomIndex);
+    }
+
+    public static LocalDate getRandomBirthDate() {
+        Faker faker = new Faker();
+        int randomYear = faker.number().numberBetween(1901, 2015);
+        int randomMonth = faker.number().numberBetween(1, 13);
+        int randomDay = faker.number().numberBetween(1, 29);
+
+        return LocalDate.of(randomYear, randomMonth, randomDay);
     }
 }

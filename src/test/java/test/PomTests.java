@@ -4,6 +4,7 @@ import base.BaseTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import page.MainLoginRegPage;
+import page.component.CalendarComponent;
 
 public class PomTests extends BaseTest {
 

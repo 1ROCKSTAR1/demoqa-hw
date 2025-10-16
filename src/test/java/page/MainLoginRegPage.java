@@ -38,6 +38,7 @@ public class MainLoginRegPage {
     String selectedHobby;
     String selectedState;
     String selectedCity;
+    String selectedBirthDate;
 
     public MainLoginRegPage navigateToTheForm() {
         open("/automation-practice-form");
@@ -76,9 +77,10 @@ public class MainLoginRegPage {
     }
 
     public MainLoginRegPage setBirthDate() {
-        CalendarComponent component = new CalendarComponent();
         dateOfBirthField.click();
-        component.setDate();
+        CalendarComponent component = new CalendarComponent();
+        component.setRandomDate();
+        this.selectedBirthDate = component.getFormattedSelectedDate();
         return this;
     }
 
@@ -151,7 +153,7 @@ public class MainLoginRegPage {
 
     public MainLoginRegPage checkAssertDateOfBirth() {
         ModalFinishWindowComponent finishWindowComponent = new ModalFinishWindowComponent();
-        finishWindowComponent.checkModalFinishWindow("Date of Birth","05 October,2025");
+        finishWindowComponent.checkModalFinishWindow("Date of Birth", selectedBirthDate);
         return this;
     }
 
