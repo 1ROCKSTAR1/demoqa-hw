@@ -39,6 +39,7 @@ public class MainLoginRegPage {
     String selectedState;
     String selectedCity;
     String selectedBirthDate;
+    String selectedPicture;
 
     public MainLoginRegPage navigateToTheForm() {
         open("/automation-practice-form");
@@ -98,7 +99,9 @@ public class MainLoginRegPage {
     }
 
     public MainLoginRegPage uploadPicture() {
-        uploadPictureArea.uploadFromClasspath("mif10.jpg");
+        String randomPicture = RandomStringUtil.getRandomPicture();
+        uploadPictureArea.uploadFromClasspath(randomPicture);
+        this.selectedPicture = randomPicture;
         return this;
     }
 
@@ -171,7 +174,7 @@ public class MainLoginRegPage {
 
     public MainLoginRegPage checkAssertPicture() {
         ModalFinishWindowComponent finishWindowComponent = new ModalFinishWindowComponent();
-        finishWindowComponent.checkModalFinishWindow("Picture","mif10.jpg");
+        finishWindowComponent.checkModalFinishWindow("Picture",selectedPicture);
         return this;
     }
 

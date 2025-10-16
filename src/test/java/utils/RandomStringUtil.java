@@ -91,4 +91,9 @@ public class RandomStringUtil {
 
         return LocalDate.of(randomYear, randomMonth, randomDay);
     }
+
+    public static String getRandomPicture() {
+        String[] pictures = {"mif10.jpg", "mif11.png", "mif12.bmp"};
+        return getRandomStringFromArray(pictures);
+    }
 }
