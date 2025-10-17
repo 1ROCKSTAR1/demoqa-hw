@@ -1,4 +1,4 @@
-# 🎯 HomeWork 3 + 4 + 5
+# 🎯 HomeWork  4 + 5
 
 <div align="center">
 
@@ -54,11 +54,7 @@
 
 │       │       ├── 🟢 CssXpathExample.java
 
-│       │       ├── 🟢 HwTest.java   < --- домашка 3
-
 │       │       ├── 🟢 PomTests.java  < --- домашка 4
-
-│       │       ├── 🟢 SimpleJunitTest.java
 
 │       │       └── 🟢 TextBoxTests.java
 
