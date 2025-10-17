@@ -81,8 +81,8 @@ public class MainLoginRegPage {
     public MainLoginRegPage setBirthDate() {
         dateOfBirthField.click();
         CalendarComponent calendar = new CalendarComponent();
-        LocalDate randomDate = calendar.setRandomDate(); // получаем дату
-        this.selectedBirthDate = CalendarComponent.formatDate(randomDate); // сохраняем в странице
+        LocalDate randomDate = calendar.setRandomDate();
+        this.selectedBirthDate = CalendarComponent.formatDate(randomDate);
         return this;
     }
 
