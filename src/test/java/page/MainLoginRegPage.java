@@ -6,6 +6,7 @@ import page.component.CalendarComponent;
 import page.component.ModalFinishWindowComponent;
 import utils.RandomStringUtil;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 import static com.codeborne.selenide.Selectors.byText;
@@ -79,9 +80,9 @@ public class MainLoginRegPage {
 
     public MainLoginRegPage setBirthDate() {
         dateOfBirthField.click();
-        CalendarComponent component = new CalendarComponent();
-        component.setRandomDate();
-        this.selectedBirthDate = component.getFormattedSelectedDate();
+        CalendarComponent calendar = new CalendarComponent();
+        LocalDate randomDate = calendar.setRandomDate(); // получаем дату
+        this.selectedBirthDate = CalendarComponent.formatDate(randomDate); // сохраняем в странице
         return this;
     }
 

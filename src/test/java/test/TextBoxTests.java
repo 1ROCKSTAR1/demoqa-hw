@@ -7,20 +7,23 @@ import page.TextBoxPage;
 
 public class TextBoxTests extends BaseTest {
 
+    TextBoxPage textBoxPage = new TextBoxPage();
+
     @Test
     @DisplayName("Переписанный на POM автотест для TextBox")
     void fillFormTest() {
 
-        TextBoxPage textBoxPage = new TextBoxPage()
+        textBoxPage
                 .navigateToTheForm()
                 .fillFullName()
                 .fillEmailField()
                 .fillCurrentAddress()
                 .fillPermanentAddress()
-                .clickOnSubmit()
-                .checkAssertFinalField("name", "Tom Adams")
-                .checkAssertFinalField("email","tomadams99@ya.com")
-                .checkAssertFinalField("currentAddress","Jakarta")
-                .checkAssertFinalField("permanentAddress","Rio");
+                .clickOnSubmit();
+        textBoxPage
+                .checkFullNameField()
+                .checkEmailField()
+                .checkCurrentsAddressField()
+                .checkPermanentAddressField();
     }
 }

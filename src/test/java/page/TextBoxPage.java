@@ -4,7 +4,8 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byText;
+import static utils.RandomStringUtil.*;
+
 import static com.codeborne.selenide.Selenide.*;
 
 public class TextBoxPage {
@@ -15,6 +16,12 @@ public class TextBoxPage {
                 permanentAddressField = $("#permanentAddress"),
                 submitButton = $("#submit");
 
+    public String fullName = getRandomFirstName() + " " + getRandomLastName();
+    public String email = getRandomEmail();
+    public String currentAddress = getRandomAddress();
+    public String permanentAddress = getRandomAddress();
+
+
     public TextBoxPage navigateToTheForm() {
         open("/text-box");
         executeJavaScript("$('footer').remove();");
@@ -23,22 +30,22 @@ public class TextBoxPage {
     }
 
     public TextBoxPage fillFullName() {
-        fullNameField.setValue("Tom Adams");
+        fullNameField.setValue(fullName);
         return this;
     }
 
     public TextBoxPage fillEmailField() {
-        emailField.setValue("tomadams99@ya.com");
+        emailField.setValue(email);
         return this;
     }
 
     public TextBoxPage fillCurrentAddress() {
-        currentAddressField.setValue("Jakarta");
+        currentAddressField.setValue(currentAddress);
         return this;
     }
 
     public TextBoxPage fillPermanentAddress() {
-        permanentAddressField.setValue("Rio");
+        permanentAddressField.setValue(permanentAddress);
         return this;
     }
 
@@ -49,6 +56,26 @@ public class TextBoxPage {
 
     public TextBoxPage checkAssertFinalField(String key, String value) {
         $("#output").$(By.id(key)).shouldHave(text(value));
+        return this;
+    }
+
+    public TextBoxPage checkFullNameField() {
+        $("#output").shouldHave(text(fullName));
+        return this;
+    }
+
+    public TextBoxPage checkEmailField() {
+        $("#output").shouldHave(text(email));
+        return this;
+    }
+
+    public TextBoxPage checkCurrentsAddressField() {
+        $("#output").shouldHave(text(currentAddress));
+        return this;
+    }
+
+    public TextBoxPage checkPermanentAddressField() {
+        $("#output").shouldHave(text(permanentAddress));
         return this;
     }
 }
