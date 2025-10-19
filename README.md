@@ -34,8 +34,6 @@ homeWork-project/
 
 │       ├── 📁 java/
 
-│       │   ├── 🟢 BaseTest.java
-
 │       │   ├── 📁 pages/
 
 │       │   │   ├── 📁 components/
@@ -52,6 +50,8 @@ homeWork-project/
 
 │       │   │   ├── 🟢 CssXpathExample.java
 
+│       │   │   ├── 🟢 BaseTest.java
+
 │       │   │   ├── 🟢 PomTests.java
 
 │       │   │   └── 🟢 TextBoxTests.java
@@ -64,11 +64,11 @@ homeWork-project/
 
 │       └── 📁 resources/
 
-│           ├── 🖼️ mif10.jpg
+│       │   ├── 🖼️ mif10.jpg
 
-│           ├── 🖼️ mif11.png
+│       │   ├── 🖼️ mif11.png
 
-│           └── 🖼️ mif12.bmp
+│       │   └── 🖼️ mif12.bmp
 
 ├── 📄 build.gradle
 
