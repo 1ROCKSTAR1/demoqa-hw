@@ -1,9 +1,10 @@
-package page;
+package pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import page.component.CalendarComponent;
-import page.component.ModalFinishWindowComponent;
+import pages.components.CalendarComponent;
+import pages.components.ModalFinishWindowComponent;
+import utils.DateHelper;
 import utils.RandomStringUtil;
 
 import java.time.LocalDate;
@@ -80,9 +81,9 @@ public class MainLoginRegPage {
 
     public MainLoginRegPage setBirthDate() {
         dateOfBirthField.click();
-        CalendarComponent calendar = new CalendarComponent();
-        LocalDate randomDate = calendar.setRandomDate();
-        this.selectedBirthDate = CalendarComponent.formatDate(randomDate);
+        LocalDate randomDate = RandomStringUtil.getRandomBirthDate();
+        new CalendarComponent().setDate(randomDate);
+        this.selectedBirthDate = DateHelper.formatDate(randomDate);
         return this;
     }
 

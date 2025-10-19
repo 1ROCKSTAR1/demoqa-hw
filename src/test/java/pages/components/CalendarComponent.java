@@ -1,10 +1,8 @@
-package page.component;
+package pages.components;
 
 import com.codeborne.selenide.SelenideElement;
-import utils.RandomStringUtil;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
@@ -18,12 +16,6 @@ public class CalendarComponent {
             yearDropdown = $("div.react-datepicker__year-dropdown-container > select"),
             monthDropdown = $("div.react-datepicker__month-dropdown-container > select");
 
-    public LocalDate setRandomDate() {
-        LocalDate randomDate = RandomStringUtil.getRandomBirthDate();
-        setDate(randomDate);
-        return randomDate;
-    }
-
     public void setDate(LocalDate date) {
         yearDropdown.selectOption(String.valueOf(date.getYear()));
 
@@ -33,10 +25,5 @@ public class CalendarComponent {
         $$("div.react-datepicker__day:not(.react-datepicker__day--outside-month)")
                 .findBy(text(String.valueOf(date.getDayOfMonth())))
                 .click();
-    }
-
-    public static String formatDate(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM,yyyy", Locale.ENGLISH);
-        return date.format(formatter);
     }
 }

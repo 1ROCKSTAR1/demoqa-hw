@@ -1,9 +1,8 @@
 package test;
 
-import base.BaseTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import page.TextBoxPage;
+import pages.TextBoxPage;
 
 public class TextBoxTests extends BaseTest {
 

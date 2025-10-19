@@ -1,16 +1,15 @@
 package test;
 
-import base.BaseTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import page.MainLoginRegPage;
+import pages.MainLoginRegPage;
 
 public class PomTests extends BaseTest {
 
     MainLoginRegPage mainLoginRegPage = new MainLoginRegPage();
 
     @Test
-    @DisplayName("Первый автотест с POM для DEMOQA")
+    @DisplayName("Автотест для DEMOQA с POM + faker")
     public void firstPositiveFormTest() {
 
         mainLoginRegPage
@@ -41,7 +40,7 @@ public class PomTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Автотест с POM для DEMOQA с минимальным набором данных")
+    @DisplayName("Автотест с POM для DEMOQA с минимальным набором данных + faker")
     public void minimalDataTest() {
 
         mainLoginRegPage
@@ -58,7 +57,7 @@ public class PomTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Негативный автотест с POM для DEMOQA с незаполненным полем Last Name")
+    @DisplayName("Негативный автотест с POM для DEMOQA с незаполненным полем Last Name + faker")
     public void negativeTest() {
 
         mainLoginRegPage
