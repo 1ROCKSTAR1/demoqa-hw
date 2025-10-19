@@ -1,4 +1,4 @@
-# 🎯 HomeWork  4 + 5
+# 🎯 HomeWork 5
 
 <div align="center">
 
@@ -26,17 +26,14 @@
 
 ## 📁 Структура проекта
 
-📁 homeWork-project/
-
+homeWork-project/
 ├── 📁 src/
 
 │   └── 📁 test/
 
 │       ├── 📁 java/
 
-│       │   ├── 📁 base/
-
-│       │   │   └── 🟢 BaseTest.java
+│       │   ├── 🟢 BaseTest.java
 
 │       │   ├── 📁 page/
 
@@ -46,27 +43,29 @@
 
 │       │   │   │   └── 🟢 ModalFinishWindowComponent.java
 
-│       │   │   └── 🟢 MainLoginRegPage.java
+│       │   │   ├── 🟢 MainLoginRegPage.java
 
 │       │   │   └── 🟢 TextBoxPage.java
 
-│       │   └── 📁 test/
+│       │   ├── 📁 test/
 
-│       │       ├── 🟢 CssXpathExample.java
+│       │   │   ├── 🟢 CssXpathExample.java
 
-│       │       ├── 🟢 PomTests.java  < --- домашка 4
+│       │   │   ├── 🟢 PomTests.java
 
-│       │       └── 🟢 TextBoxTests.java
+│       │   │   └── 🟢 TextBoxTests.java
 
 │       │   └── 📁 utils/
 
-│       │       └── 🟢 RandomStringUtil.java  < --- реализация рандомайзеров для домашки 5
+│       │   │   ├── 🟢 RandomStringUtil.java
+
+│       │   │   └── 🟢 DateHelper.java
 
 │       └── 📁 resources/
 
-│           └── 🖼️ mif10.jpg
+│           ├── 🖼️ mif10.jpg
 
-│           └── 🖼️ mif11.png
+│           ├── 🖼️ mif11.png
 
 │           └── 🖼️ mif12.bmp
 
