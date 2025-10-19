@@ -37,7 +37,7 @@ homeWork-project/
 
 │       │   ├── 📁 page/
 
-│       │   │   ├── 📁 component/
+│       │   │   ├── 📁 components/
 
 │       │   │   │   ├── 🟢 CalendarComponent.java
 
