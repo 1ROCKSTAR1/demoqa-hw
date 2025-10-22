@@ -1,42 +1,49 @@
 package test;
 
+import Data.TestData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.MainLoginRegPage;
+import pages.components.ModalFinishWindowComponent;
 
 public class PomTests extends BaseTest {
 
     MainLoginRegPage mainLoginRegPage = new MainLoginRegPage();
 
+    ModalFinishWindowComponent component = new ModalFinishWindowComponent();
+
+    TestData testData = new TestData();
+
     @Test
-    @DisplayName("Автотест для DEMOQA с POM + faker")
+    @DisplayName("Автотест для DEMOQA с POM + faker + data generation")
     public void firstPositiveFormTest() {
 
         mainLoginRegPage
                 .navigateToTheForm()
-                .fillFirstName()
-                .fillLastName()
-                .fillEmail()
-                .pickGender()
-                .fillPhoneNumber()
-                .setBirthDate()
-                .setSubject()
-                .setHobby()
-                .uploadPicture()
-                .setCurrentAddress()
-                .selectRandomStateAndCity()
+                .fillFirstName(testData.firstName)
+                .fillLastName(testData.lastName)
+                .fillEmail(testData.email)
+                .pickGender(testData.selectedGender)
+                .fillPhoneNumber(testData.phoneNumber)
+                .setBirthDate(testData.day, testData.month, testData.year)
+                .setSubject(testData.subject)
+                .setHobby(testData.selectedHobby)
+                .uploadPicture(testData.selectedPicture)
+                .setCurrentAddress(testData.address)
+                .setState(testData.selectedState)
+                .setCity(testData.selectedCity)
                 .clickOnSubmit();
-        mainLoginRegPage
-                .checkAssertFirstAndLastName()
-                .checkAssertEmail()
-                .checkAssertGender()
-                .checkAssertPhoneNumber()
-                .checkAssertDateOfBirth()
-                .checkAssertSubjects()
-                .checkAssertHobbies()
-                .checkAssertPicture()
-                .checkAssertAddress()
-                .checkAssertStateAndCity();
+        component
+                .checkModalFinishWindow("Student Name", testData.firstName + " " + testData.lastName)
+                .checkModalFinishWindow("Student Email", testData.email)
+                .checkModalFinishWindow("Gender", testData.selectedGender)
+                .checkModalFinishWindow("Mobile", testData.phoneNumber)
+                .checkModalFinishWindow("Date of Birth", testData.day + " " + testData.month + "," + testData.year)
+                .checkModalFinishWindow("Subjects", testData.subject)
+                .checkModalFinishWindow("Hobbies", testData.selectedHobby)
+                .checkModalFinishWindow("Picture", testData.selectedPicture)
+                .checkModalFinishWindow("Address", testData.address)
+                .checkModalFinishWindow("State and City", "State and City" + " " + testData.selectedState + " " + testData.selectedCity);
     }
 
     @Test
@@ -45,15 +52,15 @@ public class PomTests extends BaseTest {
 
         mainLoginRegPage
                 .navigateToTheForm()
-                .fillFirstName()
-                .fillLastName()
-                .pickGender()
-                .fillPhoneNumber()
+                .fillFirstName(testData.firstName)
+                .fillLastName(testData.lastName)
+                .pickGender(testData.selectedGender)
+                .fillPhoneNumber(testData.phoneNumber)
                 .clickOnSubmit();
-        mainLoginRegPage
-                .checkAssertFirstAndLastName()
-                .checkAssertGender()
-                .checkAssertPhoneNumber();
+        component
+                .checkModalFinishWindow("Student Name", testData.firstName + " " + testData.lastName)
+                .checkModalFinishWindow("Gender", testData.selectedGender)
+                .checkModalFinishWindow("Mobile", testData.phoneNumber);
     }
 
     @Test
@@ -62,13 +69,13 @@ public class PomTests extends BaseTest {
 
         mainLoginRegPage
                 .navigateToTheForm()
-                .fillFirstName()
-                .pickGender()
-                .fillPhoneNumber()
+                .fillFirstName(testData.firstName)
+                .pickGender(testData.selectedGender)
+                .fillPhoneNumber(testData.phoneNumber)
                 .clickOnSubmit();
-        mainLoginRegPage
-                .checkAssertFirstAndLastName()
-                .checkAssertGender()
-                .checkAssertPhoneNumber();
+        component
+                .checkModalFinishWindow("Student Name", testData.firstName + " " + testData.lastName)
+                .checkModalFinishWindow("Gender", testData.selectedGender)
+                .checkModalFinishWindow("Mobile", testData.phoneNumber);
     }
 }

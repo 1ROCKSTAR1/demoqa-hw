@@ -1,21 +1,21 @@
 package pages;
 
+import Data.TestData;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import com.github.javafaker.Faker;
 import pages.components.CalendarComponent;
-import pages.components.ModalFinishWindowComponent;
-import utils.DateHelper;
-import utils.RandomStringUtil;
-
-import java.time.LocalDate;
-import java.util.Map;
+import java.util.Locale;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
-import static utils.RandomStringUtil.*;
 
 public class MainLoginRegPage {
+
+    TestData testData = new TestData();
+
+    Faker faker = new Faker(new Locale("en-AU"));
 
     private final SelenideElement firstNameField = $("#firstName"),
                                   lastNameField = $("#lastName"),
@@ -25,23 +25,12 @@ public class MainLoginRegPage {
                                   subjectsField = $("#subjectsInput"),
                                   uploadPictureArea = $("#uploadPicture"),
                                   currentAddressField = $("#currentAddress"),
+                                  selectStateDropDown = $(byText("Select State")),
+                                  selectCityDropDown = $(byText("Select City")),
                                   submitButton = $("#submit");
 
     private final ElementsCollection genderRadioButtons = $$("[for^=gender-radio]"),
                                      hobbiesCheckboxes = $$("label[for^='hobbies-checkbox-']");
-
-    String firstName = getRandomFirstName();
-    String lastName = getRandomLastName();
-    String email = getRandomEmail();
-    String phoneNumber = getRandomPhoneNumber();
-    String subject = getRandomSubjects();
-    String address = getRandomAddress();
-    String selectedGender;
-    String selectedHobby;
-    String selectedState;
-    String selectedCity;
-    String selectedBirthDate;
-    String selectedPicture;
 
     public MainLoginRegPage navigateToTheForm() {
         open("/automation-practice-form");
@@ -50,145 +39,85 @@ public class MainLoginRegPage {
         return this;
     }
 
-    public MainLoginRegPage fillFirstName() {
+    public MainLoginRegPage fillFirstName(String firstName) {
         firstNameField.setValue(firstName);
         return this;
     }
 
-    public MainLoginRegPage fillLastName() {
+    public MainLoginRegPage fillLastName(String lastName) {
         lastNameField.setValue(lastName);
         return this;
     }
 
-    public MainLoginRegPage fillEmail() {
+    public MainLoginRegPage fillEmail(String email) {
         emailField.setValue(email);
         return this;
     }
 
-    public MainLoginRegPage pickGender() {
-        int randomIndex = getRandomIndex(3);//;
-        SelenideElement selectedButton = genderRadioButtons.get(randomIndex);
-        selectedButton.click();
-
-        selectedGender = selectedButton.getText();
+    public MainLoginRegPage pickGender(String selectedGender) {
+        genderRadioButtons
+                .asFixedIterable()
+                .stream()
+                .filter(e -> e.text().equals(selectedGender))
+                .findFirst()
+                .get()
+                .click();
         return this;
     }
 
-    public MainLoginRegPage fillPhoneNumber() {
+    public MainLoginRegPage fillPhoneNumber(String phoneNumber) {
         phoneNumberField.setValue(phoneNumber);
         return this;
     }
 
-    public MainLoginRegPage setBirthDate() {
+    public MainLoginRegPage setBirthDate(String day, String month, String year) {
         dateOfBirthField.click();
-        LocalDate randomDate = RandomStringUtil.getRandomBirthDate();
-        new CalendarComponent().setDate(randomDate);
-        this.selectedBirthDate = DateHelper.formatDate(randomDate);
+        CalendarComponent component = new CalendarComponent();
+        component.setDate(day, month, year);
         return this;
     }
 
-    public MainLoginRegPage setSubject() {
+    public MainLoginRegPage setSubject(String subject) {
         subjectsField.setValue(subject).pressEnter();
+        String selectedSubject = subject;
         return this;
     }
 
-    public MainLoginRegPage setHobby() {
-        int randomIndex = getRandomIndex(3);
-        SelenideElement selectedCheckbox = hobbiesCheckboxes.get(randomIndex);
-        selectedCheckbox.click();
-        selectedHobby = selectedCheckbox.getText();
+    public MainLoginRegPage setHobby(String selectedHobby) {
+        hobbiesCheckboxes
+                .asFixedIterable()
+                .stream()
+                .filter(e -> e.getText().equals(selectedHobby))
+                .findFirst()
+                .get()
+                .click();
         return this;
     }
 
-    public MainLoginRegPage uploadPicture() {
-        String randomPicture = RandomStringUtil.getRandomPicture();
-        uploadPictureArea.uploadFromClasspath(randomPicture);
-        this.selectedPicture = randomPicture;
+    public MainLoginRegPage uploadPicture(String selectedPicture) {
+        uploadPictureArea.uploadFromClasspath(selectedPicture);
         return this;
     }
 
-    public MainLoginRegPage setCurrentAddress() {
+    public MainLoginRegPage setCurrentAddress(String address) {
         currentAddressField.setValue(address);
         return this;
     }
 
-    public MainLoginRegPage selectRandomStateAndCity() {
-
-        Map.Entry<String, String> stateCity = RandomStringUtil.getRandomStateAndCity();
-        this.selectedState = stateCity.getKey();
-        this.selectedCity = stateCity.getValue();
-
-        $(byText("Select State")).scrollTo().click();
+    public MainLoginRegPage setState(String selectedState) {
+        selectStateDropDown.scrollTo().click();
         $(byText(selectedState)).click();
+        return this;
+    }
 
-        $(byText("Select City")).click();
+    public MainLoginRegPage setCity(String selectedCity) {
+        selectCityDropDown.click();
         $(byText(selectedCity)).click();
-
         return this;
     }
 
     public MainLoginRegPage clickOnSubmit() {
         submitButton.click();
-        return this;
-    }
-
-    public MainLoginRegPage checkAssertFirstAndLastName() {
-        ModalFinishWindowComponent finishWindowComponent = new ModalFinishWindowComponent();
-        finishWindowComponent.checkModalFinishWindow("Student Name",firstName + " " + lastName);
-        return this;
-    }
-
-    public MainLoginRegPage checkAssertEmail() {
-        ModalFinishWindowComponent finishWindowComponent = new ModalFinishWindowComponent();
-        finishWindowComponent.checkModalFinishWindow("Student Email",email);
-        return this;
-    }
-
-    public MainLoginRegPage checkAssertGender() {
-        ModalFinishWindowComponent finishWindowComponent = new ModalFinishWindowComponent();
-        finishWindowComponent.checkModalFinishWindow("Gender",selectedGender);
-        return this;
-    }
-
-    public MainLoginRegPage checkAssertPhoneNumber() {
-        ModalFinishWindowComponent finishWindowComponent = new ModalFinishWindowComponent();
-        finishWindowComponent.checkModalFinishWindow("Mobile",phoneNumber);
-        return this;
-    }
-
-    public MainLoginRegPage checkAssertDateOfBirth() {
-        ModalFinishWindowComponent finishWindowComponent = new ModalFinishWindowComponent();
-        finishWindowComponent.checkModalFinishWindow("Date of Birth", selectedBirthDate);
-        return this;
-    }
-
-    public MainLoginRegPage checkAssertSubjects() {
-        ModalFinishWindowComponent finishWindowComponent = new ModalFinishWindowComponent();
-        finishWindowComponent.checkModalFinishWindow("Subjects",subject);
-        return this;
-    }
-
-    public MainLoginRegPage checkAssertHobbies() {
-        ModalFinishWindowComponent finishWindowComponent = new ModalFinishWindowComponent();
-        finishWindowComponent.checkModalFinishWindow("Hobbies",selectedHobby);
-        return this;
-    }
-
-    public MainLoginRegPage checkAssertPicture() {
-        ModalFinishWindowComponent finishWindowComponent = new ModalFinishWindowComponent();
-        finishWindowComponent.checkModalFinishWindow("Picture",selectedPicture);
-        return this;
-    }
-
-    public MainLoginRegPage checkAssertAddress() {
-        ModalFinishWindowComponent finishWindowComponent = new ModalFinishWindowComponent();
-        finishWindowComponent.checkModalFinishWindow("Address",address);
-        return this;
-    }
-
-    public MainLoginRegPage checkAssertStateAndCity() {
-        ModalFinishWindowComponent finishWindowComponent = new ModalFinishWindowComponent();
-        finishWindowComponent.checkModalFinishWindow("State and City",selectedState + " " + selectedCity);
         return this;
     }
 }
