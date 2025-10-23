@@ -1,6 +1,6 @@
 package test;
 
-import Data.TestData;
+import data.TestData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.MainLoginRegPage;

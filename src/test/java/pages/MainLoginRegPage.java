@@ -1,6 +1,6 @@
 package pages;
 
-import Data.TestData;
+import data.TestData;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.github.javafaker.Faker;
