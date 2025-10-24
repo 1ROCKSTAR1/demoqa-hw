@@ -1,5 +1,6 @@
 package test;
 
+import data.Forms;
 import data.Language;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -15,6 +16,7 @@ import java.util.stream.Stream;
 
 import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class DataProviderTests extends BaseTest {
@@ -50,11 +52,11 @@ public class DataProviderTests extends BaseTest {
     static Stream<Arguments> demoQaData() {
         return Stream.of(
                 Arguments.of(
-                        Language.ind.getDisplayName(),
+                        Language.rus.getDisplayName(),
                         List.of("Lokasi", "Kapan", "Peserta")
                 ),
                 Arguments.of(
-                        Language.rus.getDisplayName(),
+                        Language.ind.getDisplayName(),
                         List.of("Где", "Когда", "Кто")
                 )
         );
@@ -66,10 +68,42 @@ public class DataProviderTests extends BaseTest {
     @DisplayName("dataDriven автотест с MethodSource")
     public void languageTest(String language, List<String> expectedHeaders) {
         open("https://www.airbnb.com/");
-        $("[aria-label='Choose a language and currency']").click();
+        $("button span[data-button-content='true']").click();
+        $("a:contains("+language+")").click();
+
+        $$(".f1xmefpa").shouldHave(texts(expectedHeaders));
+
+        $("[data-button-content='true']").parent().click();
         $("a:contains("+language+")").click();
         $$(".f1xmefpa").shouldHave(texts(expectedHeaders));
-        $("a:contains("+language+")").click();
-        $$(".f1xmefpa").shouldHave(texts(expectedHeaders));
+    }
+
+    static Stream<Arguments> demoQaData2() {
+        return Stream.of(
+                Arguments.of(
+                        Forms.Elements.getDisplayName(),
+                        List.of("Text Box", "Check Box", "Radio Button", "Web Tables", "Buttons", "Links", "Broken Links - Images","Upload and Download", "Dynamic Properties")
+                ),
+                Arguments.of(
+                        Forms.Afw.getDisplayName(),
+                        List.of("Browser Windows", "Alerts", "Frames", "Nested Frames", "Modal Dialogs")
+                )
+        );
+    }
+
+    @MethodSource("demoQaData2")
+    @ParameterizedTest
+    @Tag("dataDrivenTests")
+    @DisplayName("dataDriven автотест с MethodSource")
+    public void lestMenuTest(String form, List<String> expectedHeaders) {
+        open("/forms");
+
+        $(byText(form)).click();
+        $$("div.element-list.collapse.show ul li")
+                .shouldHave(texts(expectedHeaders));
+
+        $(byText(form)).scrollTo().click();
+        $$("div.element-list.collapse.show li")
+                .shouldHave((texts(expectedHeaders)));
     }
 }
