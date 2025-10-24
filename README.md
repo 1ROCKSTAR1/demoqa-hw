@@ -1,4 +1,4 @@
-# 🎯 HomeWork 5
+# 🎯 HomeWork 5 + 6
 
 <div align="center">
 
