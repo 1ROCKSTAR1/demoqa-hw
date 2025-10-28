@@ -1,4 +1,4 @@
-# 🎯 HomeWork 5 + 6
+# 🎯 HomeWork 6 + 8
 
 <div align="center">
 
@@ -6,6 +6,7 @@
 <img src="https://github.com/1ROCKSTAR1/source/blob/main/icons/JUnit5.svg" width="56" height="56">
 <img src="https://github.com/1ROCKSTAR1/source/blob/main/icons/Gradle.svg" width="56" height="56">
 <img src="https://github.com/1ROCKSTAR1/source/blob/main/icons/Intelij_IDEA.svg" width="56" height="56">
+<img src="https://github.com/1ROCKSTAR1/source/blob/main/icons/Allure_Report.svg" width="56" height="56">
 
 </div>
 
