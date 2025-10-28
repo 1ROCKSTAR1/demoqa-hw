@@ -2,8 +2,8 @@ package data;
 
 public enum Forms {
 
-    Elements("Elements"),
-    Afw("Alerts, Frame & Windows");
+    Eng("en"),
+    Esp("es");
 
     private final String displayName;
 

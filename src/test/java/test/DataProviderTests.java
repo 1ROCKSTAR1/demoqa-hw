@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 
 import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selectors.byTagAndText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class DataProviderTests extends BaseTest {
@@ -70,7 +70,7 @@ public class DataProviderTests extends BaseTest {
         open("https://www.airbnb.com/");
         $("button span[data-button-content='true']").click();
         $("a:contains("+language+")").click();
-
+        $(byTagAndText("button", "Понятно")).click();
         $$(".f1xmefpa").shouldHave(texts(expectedHeaders));
 
         $("[data-button-content='true']").parent().click();
@@ -81,12 +81,12 @@ public class DataProviderTests extends BaseTest {
     static Stream<Arguments> demoQaData2() {
         return Stream.of(
                 Arguments.of(
-                        Forms.Elements.getDisplayName(),
-                        List.of("Text Box", "Check Box", "Radio Button", "Web Tables", "Buttons", "Links", "Broken Links - Images","Upload and Download", "Dynamic Properties")
+                        Forms.Eng.getDisplayName(),
+                        List.of("Press and news", "Events", "Partnerships", "Governance", "Quick Links")
                 ),
                 Arguments.of(
-                        Forms.Afw.getDisplayName(),
-                        List.of("Browser Windows", "Alerts", "Frames", "Nested Frames", "Modal Dialogs")
+                        Forms.Esp.getDisplayName(),
+                        List.of("Centro de medios", "Eventos", "Alianzas", "Gobernanza", "Enlaces rápidos")
                 )
         );
     }
@@ -96,14 +96,16 @@ public class DataProviderTests extends BaseTest {
     @Tag("dataDrivenTests")
     @DisplayName("dataDriven автотест с MethodSource")
     public void lestMenuTest(String form, List<String> expectedHeaders) {
-        open("/forms");
+        open("https://www.unesco.org/en");
 
-        $(byText(form)).click();
-        $$("div.element-list.collapse.show ul li")
-                .shouldHave(texts(expectedHeaders));
+        $("#block-languageswitcher").click();
+        $("li[hreflang='"+form+"']").click();
 
-        $(byText(form)).scrollTo().click();
-        $$("div.element-list.collapse.show li")
-                .shouldHave((texts(expectedHeaders)));
+        $$("$$('ul.navbar-nav a')").shouldHave(texts(expectedHeaders));
+
+        $("#block-languageswitcher").click();
+        $("li[hreflang='"+form+"']").click();
+
+        $$("div.element-list.collapse.show li").shouldHave((texts(expectedHeaders)));
     }
 }
