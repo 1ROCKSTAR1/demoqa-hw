@@ -47,6 +47,8 @@
 
 │       │   ├── 📁 test/
 
+│       │   │   ├── 🟢 AllureExampleTests.java
+
 │       │   │   ├── 🟢 BaseTest.java
 
 │       │   │   ├── 🟢 CssXpathExample.java
