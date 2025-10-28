@@ -2,7 +2,6 @@ package test;
 
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
@@ -13,7 +12,6 @@ import static com.codeborne.selenide.logevents.SelenideLogger.step;
 @Feature("AllureExample")
 public class AllureExampleTests extends BaseTest {
 
-    @Tag("AllureExampleTests")
     @DisplayName("Чистый тест с Listener")
     @Test
     public void severalEmailDomensTest() {
@@ -28,7 +26,6 @@ public class AllureExampleTests extends BaseTest {
         $("#output").shouldHave(text("alex22@ya.com"));
     }
 
-    @Tag("AllureExampleTests")
     @DisplayName("Тест с лямбда шагами")
     @Test
     public void severalEmailDomens2Test() {

@@ -66,7 +66,6 @@ public class DataProviderTests extends BaseTest {
 
     @MethodSource("demoQaData")
     @ParameterizedTest
-    @Tag("dataDrivenTests")
     @DisplayName("dataDriven автотест с MethodSource")
     public void languageTest(String language, List<String> expectedHeaders) {
         open("https://www.airbnb.com/");
@@ -95,7 +94,6 @@ public class DataProviderTests extends BaseTest {
 
     @MethodSource("demoQaData2")
     @ParameterizedTest
-    @Tag("dataDrivenTests")
     @DisplayName("dataDriven автотест с MethodSource")
     public void lestMenuTest(String form, List<String> expectedHeaders) {
         open("https://www.unesco.org/en");
