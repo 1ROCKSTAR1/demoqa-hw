@@ -1,9 +1,11 @@
 package test;
 
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.TextBoxPage;
 
+@Feature("TextBox")
 public class TextBoxTests extends BaseTest {
 
     TextBoxPage textBoxPage = new TextBoxPage();

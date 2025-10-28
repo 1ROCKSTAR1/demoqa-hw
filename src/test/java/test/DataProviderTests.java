@@ -2,6 +2,7 @@ package test;
 
 import data.Forms;
 import data.Language;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -19,6 +20,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byTagAndText;
 import static com.codeborne.selenide.Selenide.*;
 
+@Feature("DataDriven")
 public class DataProviderTests extends BaseTest {
 
     @ValueSource(strings = {"tomAdams@google.com","tomAdams@yandex.ru","tomAdams@sharashka.org"})

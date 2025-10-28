@@ -1,11 +1,13 @@
 package test;
 
 import data.TestData;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.MainLoginRegPage;
 import pages.components.ModalFinishWindowComponent;
 
+@Feature("RegTest")
 public class PomTests extends BaseTest {
 
     MainLoginRegPage mainLoginRegPage = new MainLoginRegPage();
