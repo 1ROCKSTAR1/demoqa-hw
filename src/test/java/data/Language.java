@@ -2,8 +2,8 @@ package data;
 
 public enum Language {
 
-    ind("Bahasa Indonesia"),
-    rus("Русский");
+    Eng("en"),
+    Esp("es");
 
     private final String displayName;
 

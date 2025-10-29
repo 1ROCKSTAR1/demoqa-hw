@@ -1,6 +1,7 @@
 package test;
 
-import data.Forms;
+import com.codeborne.selenide.CollectionCondition;
+import com.codeborne.selenide.Condition;
 import data.Language;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.Assertions;
@@ -15,9 +16,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byTagAndText;
 import static com.codeborne.selenide.Selenide.*;
 
 @Feature("DataDriven")
@@ -51,61 +50,33 @@ public class DataProviderTests extends BaseTest {
         Assertions.assertTrue($("#demo-tabpane-"+tabName).getText().contains(text));
     }
 
-    static Stream<Arguments> demoQaData() {
+    static Stream<Arguments> dataUnesco() {
         return Stream.of(
                 Arguments.of(
-                        Language.rus.getDisplayName(),
-                        List.of("Lokasi", "Kapan", "Peserta")
+                        Language.Eng.getDisplayName(),
+                        List.of("About", "Expertise", "Impact", "Resources")
                 ),
                 Arguments.of(
-                        Language.ind.getDisplayName(),
-                        List.of("Где", "Когда", "Кто")
+                        Language.Esp.getDisplayName(),
+                        List.of("Acerca de", "Competencia", "Impacto", "Recursos")
                 )
         );
     }
 
-    @MethodSource("demoQaData")
+    @MethodSource("dataUnesco")
     @ParameterizedTest
     @DisplayName("dataDriven автотест с MethodSource")
-    public void languageTest(String language, List<String> expectedHeaders) {
-        open("https://www.airbnb.com/");
-        $("button span[data-button-content='true']").click();
-        $("a:contains("+language+")").click();
-        $(byTagAndText("button", "Понятно")).click();
-        $$(".f1xmefpa").shouldHave(texts(expectedHeaders));
+    public void unescoMenuTest(String lang, List<String> expectedHeaders) {
 
-        $("[data-button-content='true']").parent().click();
-        $("a:contains("+language+")").click();
-        $$(".f1xmefpa").shouldHave(texts(expectedHeaders));
-    }
+        open("https://www.unesco.org/" + lang);
 
-    static Stream<Arguments> demoQaData2() {
-        return Stream.of(
-                Arguments.of(
-                        Forms.Eng.getDisplayName(),
-                        List.of("Press and news", "Events", "Partnerships", "Governance", "Quick Links")
-                ),
-                Arguments.of(
-                        Forms.Esp.getDisplayName(),
-                        List.of("Centro de medios", "Eventos", "Alianzas", "Gobernanza", "Enlaces rápidos")
-                )
-        );
-    }
+        $$("ul[class='menu nav navbar-nav menu-level-0'] li")
+                .filter(Condition.visible)
+                .shouldHave(CollectionCondition.containExactTextsCaseSensitive(expectedHeaders));
+        open("https://www.unesco.org/" + lang);
 
-    @MethodSource("demoQaData2")
-    @ParameterizedTest
-    @DisplayName("dataDriven автотест с MethodSource")
-    public void lestMenuTest(String form, List<String> expectedHeaders) {
-        open("https://www.unesco.org/en");
-
-        $("#block-languageswitcher").click();
-        $("li[hreflang='"+form+"']").click();
-
-        $$("$$('ul.navbar-nav a')").shouldHave(texts(expectedHeaders));
-
-        $("#block-languageswitcher").click();
-        $("li[hreflang='"+form+"']").click();
-
-        $$("div.element-list.collapse.show li").shouldHave((texts(expectedHeaders)));
+        $$("ul[class='menu nav navbar-nav menu-level-0'] li")
+                .filter(Condition.visible)
+                .shouldHave(CollectionCondition.containExactTextsCaseSensitive(expectedHeaders));
     }
 }
