@@ -1,4 +1,4 @@
-# 🎯 HomeWork 6 + 8
+# 🎯 HomeWork 7 + 8
 
 <div align="center">
 
@@ -55,6 +55,8 @@
 
 │       │   │   ├── 🟢 DataProviderTests.java
 
+│       │   │   ├── 🟢 DownloadFilesTests.java
+
 │       │   │   ├── 🟢 PomTests.java
 
 │       │   │   └── 🟢 TextBoxTests.java
@@ -62,6 +64,8 @@
 │       │   └── 📁 utils/
 
 │       │   │   ├── 🟢 RandomStringUtil.java
+
+│       │   │   ├── 🟢 FilesUtil.java
 
 │       │   │   └── 🟢 DateHelper.java
 
