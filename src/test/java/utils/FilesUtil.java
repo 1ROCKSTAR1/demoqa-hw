@@ -79,7 +79,7 @@ public class FilesUtil {
     }
 
     @Step("Проверка JSON")
-    public static void verifyJsonFile(File json) throws Exception {
+    public static void verifyCarJsonFile(File json) throws Exception {
         System.out.println("Проверяем JSON файл");
 
         ObjectMapper objectMapper = new ObjectMapper();

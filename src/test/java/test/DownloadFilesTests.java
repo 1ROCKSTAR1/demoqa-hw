@@ -63,7 +63,7 @@ public class DownloadFilesTests {
         File downloadedJson = $(".react-blob-header-edit-and-raw-actions [href*='/main/files/testJSON.json']")
                 .download();
 
-        verifyJsonFile(downloadedJson);
+        verifyCarJsonFile(downloadedJson);
     }
 }
 
