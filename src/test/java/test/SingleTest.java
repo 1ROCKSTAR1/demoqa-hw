@@ -18,10 +18,12 @@ public class SingleTest {
 
     @BeforeAll
     static void beforeAll() {
-        Configuration.baseUrl = "https://demoqa.com";
-        Configuration.browserSize = "1920x1080";
+        Configuration.baseUrl = System.getProperty("baseUrl");
+        Configuration.browser = System.getProperty("browser");
+        Configuration.browserSize = System.getProperty("resolution");
+        Configuration.browserVersion = System.getProperty("browserVersion");
         Configuration.timeout = 10000;
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+        Configuration.remote = System.getProperty("remoteDriverUrl");
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
@@ -41,7 +43,7 @@ public class SingleTest {
         Attach.addVideo();
     }
 
-    @Tag("single")
+    @Tag("singlePropertyTest")
     @DisplayName("Тест с лямбда шагами")
     @Test
     public void severalEmailDomens2Test() {
