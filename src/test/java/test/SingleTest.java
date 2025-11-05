@@ -23,7 +23,7 @@ public class SingleTest {
         Configuration.browserSize = System.getProperty("resolution","1920x1080");
         Configuration.browserVersion = System.getProperty("browserVersion","latest");
         Configuration.timeout = 10000;
-        Configuration.remote = System.getProperty("remoteDriverUrl");
+        Configuration.remote = System.getProperty("remoteDriverUrl","https://user1:1234@selenoid.autotests.cloud/wd/hub");
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
