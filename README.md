@@ -1,4 +1,4 @@
-# 🎯 HomeWork 7 + 8
+# 🎯 HomeWork 7 + 8 + 9 + 10
 
 <div align="center">
 
@@ -7,6 +7,8 @@
 <img src="https://github.com/1ROCKSTAR1/source/blob/main/icons/Gradle.svg" width="56" height="56">
 <img src="https://github.com/1ROCKSTAR1/source/blob/main/icons/Intelij_IDEA.svg" width="56" height="56">
 <img src="https://github.com/1ROCKSTAR1/source/blob/main/icons/Allure_Report.svg" width="56" height="56">
+<img src="https://github.com/1ROCKSTAR1/source/blob/main/icons/selenoid.png" width="60" height="50">
+<img src="https://github.com/1ROCKSTAR1/source/blob/main/icons/Jenkins.svg" width="56" height="56">
 
 </div>
 
@@ -22,7 +24,7 @@
 ![JUnit](https://img.shields.io/badge/JUnit-5.9-25A162?style=flat-square&logo=junit5&logoColor=white)
 
 ### Инструменты:
-![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-2023-000000?style=flat-square&logo=intellij-idea&logoColor=white)
+![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-2024-000000?style=flat-square&logo=intellij-idea&logoColor=white)
 ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
 
 ## 📁 Структура проекта
@@ -32,6 +34,16 @@
 │   └── 📁 test/
 
 │       ├── 📁 java/
+
+│       │   ├── 📁 helpers/
+
+│       │   │   └── 🟢 Attach.java
+
+│       │   ├── 📁 data/
+
+│       │   │   ├── 🟢 Language.java
+
+│       │   │   └── 🟢 TestData.java
 
 │       │   ├── 📁 pages/
 
@@ -58,6 +70,8 @@
 │       │   │   ├── 🟢 DownloadFilesTests.java
 
 │       │   │   ├── 🟢 PomTests.java
+
+│       │   │   ├── 🟢 SingleTest.java
 
 │       │   │   └── 🟢 TextBoxTests.java
 
