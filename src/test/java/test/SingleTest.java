@@ -18,10 +18,10 @@ public class SingleTest {
 
     @BeforeAll
     static void beforeAll() {
-        Configuration.baseUrl = System.getProperty("baseUrl");
-        Configuration.browser = System.getProperty("browser");
-        Configuration.browserSize = System.getProperty("resolution");
-        Configuration.browserVersion = System.getProperty("browserVersion");
+        Configuration.baseUrl = System.getProperty("baseUrl","https://demoqa.com");
+        Configuration.browser = System.getProperty("browser","chrome");
+        Configuration.browserSize = System.getProperty("resolution","1920x1080");
+        Configuration.browserVersion = System.getProperty("browserVersion","latest");
         Configuration.timeout = 10000;
         Configuration.remote = System.getProperty("remoteDriverUrl");
 
