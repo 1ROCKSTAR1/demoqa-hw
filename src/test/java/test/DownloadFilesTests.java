@@ -7,11 +7,12 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
 import java.util.zip.ZipInputStream;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static utils.FilesUtil.*;
 
 @Feature("FilesTest")
@@ -24,35 +25,41 @@ public class DownloadFilesTests {
         File downloadedZip = $(".react-blob-header-edit-and-raw-actions [href*='/main/files/testFiless.zip']")
                 .download();
 
-        assertTrue(downloadedZip.exists(), "ZIP файл должен существовать");
-        assertTrue(downloadedZip.length() > 0, "ZIP файл не должен быть пустым");
-
         try (FileInputStream fis = new FileInputStream(downloadedZip);
              ZipInputStream zis = new ZipInputStream(fis)) {
 
             ZipEntry entry;
+            int totalFiles = 0;
 
             while ((entry = zis.getNextEntry()) != null) {
                 String fileName = entry.getName();
-                System.out.println(fileName);
+                System.out.println("Найден файл: " + fileName);
+                totalFiles++;
 
                 byte[] fileData = zis.readAllBytes();
+
+                assertTrue(fileData.length > 0, "Файл " + fileName + " не должен быть пустым");
 
                 if (fileName.endsWith(".xlsx") || fileName.endsWith(".xls")) {
                     System.out.println(">>> Найден Excel файл: " + fileName);
                     verifyXlsxFile(fileData);
-                }
-                if (fileName.endsWith(".csv")) {
-                    System.out.println(">>> Найден Csv файл: " + fileName);
+
+                } else if (fileName.endsWith(".csv")) {
+                    System.out.println(">>> Найден CSV файл: " + fileName);
                     verifyCsvFile(fileData);
-                }
-                if (fileName.endsWith(".docx")) {
+
+                } else if (fileName.endsWith(".docx")) {
                     System.out.println(">>> Найден DOCX файл: " + fileName);
                     verifyDocxFile(fileData);
                 }
 
                 zis.closeEntry();
             }
+
+            assertTrue(totalFiles > 0, "ZIP архив не должен быть пустым");
+
+        } catch (ZipException e) {
+            fail("ZIP архив поврежден или пуст: " + e.getMessage());
         }
     }
 
