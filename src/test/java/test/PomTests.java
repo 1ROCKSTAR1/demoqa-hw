@@ -3,12 +3,10 @@ package test;
 import data.TestData;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.MainLoginRegPage;
 import pages.components.ModalFinishWindowComponent;
 
-@Tag("singlePropertyTest")
 @Feature("RegTest")
 public class PomTests extends BaseTest {
 
