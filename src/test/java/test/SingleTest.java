@@ -21,7 +21,7 @@ public class SingleTest {
         Configuration.baseUrl = System.getProperty("baseUrl","https://demoqa.com");
         Configuration.browser = System.getProperty("browser","chrome");
         Configuration.browserSize = System.getProperty("resolution","1920x1080");
-        Configuration.browserVersion = System.getProperty("browserVersion","latest");
+        Configuration.browserVersion = System.getProperty("browserVersion","127.0");
         Configuration.timeout = 10000;
         Configuration.remote = System.getProperty("remoteDriverUrl","https://user1:1234@selenoid.autotests.cloud/wd/hub");
 
@@ -31,8 +31,11 @@ public class SingleTest {
                 "enableVideo", true
         ));
         Configuration.browserCapabilities = capabilities;
+    }
 
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+    @BeforeEach
+    void beforeSingle() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
     @AfterEach
