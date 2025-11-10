@@ -19,8 +19,8 @@ import static utils.FilesUtil.*;
 public class DownloadFilesTests {
 
     @Test
-    @DisplayName("Проверка содержимого в ZIP")
-    public void downloadZipTest() throws Exception {
+    @DisplayName("Проверка содержимого в ZIP (xls)")
+    public void downloadZipXlsTest() throws Exception {
         open("https://github.com/1ROCKSTAR1/source/blob/main/files/testFiless.zip");
         File downloadedZip = $(".react-blob-header-edit-and-raw-actions [href*='/main/files/testFiless.zip']")
                 .download();
@@ -44,18 +44,83 @@ public class DownloadFilesTests {
                     System.out.println(">>> Найден Excel файл: " + fileName);
                     verifyXlsxFile(fileData);
 
-                } else if (fileName.endsWith(".csv")) {
-                    System.out.println(">>> Найден CSV файл: " + fileName);
-                    verifyCsvFile(fileData);
+                }
+                zis.closeEntry();
+            }
 
-                } else if (fileName.endsWith(".docx")) {
-                    System.out.println(">>> Найден DOCX файл: " + fileName);
+            assertTrue(totalFiles > 0, "ZIP архив не должен быть пустым");
+
+        } catch (ZipException e) {
+            fail("ZIP архив поврежден или пуст: " + e.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Проверка содержимого в ZIP (doc)")
+    public void downloadZipDocTest() throws Exception {
+        open("https://github.com/1ROCKSTAR1/source/blob/main/files/testFiless.zip");
+        File downloadedZip = $(".react-blob-header-edit-and-raw-actions [href*='/main/files/testFiless.zip']")
+                .download();
+
+        try (FileInputStream fis = new FileInputStream(downloadedZip);
+             ZipInputStream zis = new ZipInputStream(fis)) {
+
+            ZipEntry entry;
+            int totalFiles = 0;
+
+            while ((entry = zis.getNextEntry()) != null) {
+                String fileName = entry.getName();
+                System.out.println("Найден файл: " + fileName);
+                totalFiles++;
+
+                byte[] fileData = zis.readAllBytes();
+
+                assertTrue(fileData.length > 0, "Файл " + fileName + " не должен быть пустым");
+
+                if (fileName.endsWith(".docx")) {
+                    System.out.println(">>> Найден DOC файл: " + fileName);
                     verifyDocxFile(fileData);
                 }
 
                 zis.closeEntry();
             }
 
+            assertTrue(totalFiles > 0, "ZIP архив не должен быть пустым");
+
+        } catch (ZipException e) {
+            fail("ZIP архив поврежден или пуст: " + e.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Проверка содержимого в ZIP (csv)")
+    public void downloadZipTest() throws Exception {
+        open("https://github.com/1ROCKSTAR1/source/blob/main/files/testFiless.zip");
+        File downloadedZip = $(".react-blob-header-edit-and-raw-actions [href*='/main/files/testFiless.zip']")
+                .download();
+
+        try (FileInputStream fis = new FileInputStream(downloadedZip);
+             ZipInputStream zis = new ZipInputStream(fis)) {
+
+            ZipEntry entry;
+            int totalFiles = 0;
+
+            while ((entry = zis.getNextEntry()) != null) {
+                String fileName = entry.getName();
+                System.out.println("Найден файл: " + fileName);
+                totalFiles++;
+
+                byte[] fileData = zis.readAllBytes();
+
+                assertTrue(fileData.length > 0, "Файл " + fileName + " не должен быть пустым");
+
+                if (fileName.endsWith(".csv")) {
+                    System.out.println(">>> Найден CSV файл: " + fileName);
+                    verifyCsvFile(fileData);
+
+                    zis.closeEntry();
+                }
+            }
             assertTrue(totalFiles > 0, "ZIP архив не должен быть пустым");
 
         } catch (ZipException e) {
