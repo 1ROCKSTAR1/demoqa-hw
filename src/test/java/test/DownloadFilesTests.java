@@ -29,12 +29,12 @@ public class DownloadFilesTests {
              ZipInputStream zis = new ZipInputStream(fis)) {
 
             ZipEntry entry;
-            int totalFiles = 0;
+            boolean xlsFileFound = false;
+            int xlsFilesCount = 0;
 
             while ((entry = zis.getNextEntry()) != null) {
                 String fileName = entry.getName();
                 System.out.println("Найден файл: " + fileName);
-                totalFiles++;
 
                 byte[] fileData = zis.readAllBytes();
 
@@ -42,13 +42,15 @@ public class DownloadFilesTests {
 
                 if (fileName.endsWith(".xlsx") || fileName.endsWith(".xls")) {
                     System.out.println(">>> Найден Excel файл: " + fileName);
+                    xlsFileFound = true;
+                    xlsFilesCount++;
                     verifyXlsxFile(fileData);
 
                 }
                 zis.closeEntry();
             }
-
-            assertTrue(totalFiles > 0, "ZIP архив не должен быть пустым");
+            System.out.println("Найдено XLS-файлов " + xlsFilesCount);
+            assertTrue(xlsFileFound, "ZIP архив не должен быть пустым");
 
         } catch (ZipException e) {
             fail("ZIP архив поврежден или пуст: " + e.getMessage());
@@ -66,12 +68,12 @@ public class DownloadFilesTests {
              ZipInputStream zis = new ZipInputStream(fis)) {
 
             ZipEntry entry;
-            int totalFiles = 0;
+            boolean docFileFound = false;
+            int docFilesCount = 0;
 
             while ((entry = zis.getNextEntry()) != null) {
                 String fileName = entry.getName();
                 System.out.println("Найден файл: " + fileName);
-                totalFiles++;
 
                 byte[] fileData = zis.readAllBytes();
 
@@ -79,13 +81,15 @@ public class DownloadFilesTests {
 
                 if (fileName.endsWith(".docx")) {
                     System.out.println(">>> Найден DOC файл: " + fileName);
+                    docFileFound = true;
+                    docFilesCount++;
                     verifyDocxFile(fileData);
                 }
 
                 zis.closeEntry();
             }
-
-            assertTrue(totalFiles > 0, "ZIP архив не должен быть пустым");
+            System.out.println("Найдено DOC-файлов " + docFilesCount);
+            assertTrue(docFileFound, "ZIP архив не должен быть пустым");
 
         } catch (ZipException e) {
             fail("ZIP архив поврежден или пуст: " + e.getMessage());
@@ -103,12 +107,12 @@ public class DownloadFilesTests {
              ZipInputStream zis = new ZipInputStream(fis)) {
 
             ZipEntry entry;
-            int totalFiles = 0;
+            boolean csvFileFound = false;
+            int csvFilesCount = 0;
 
             while ((entry = zis.getNextEntry()) != null) {
                 String fileName = entry.getName();
                 System.out.println("Найден файл: " + fileName);
-                totalFiles++;
 
                 byte[] fileData = zis.readAllBytes();
 
@@ -116,12 +120,15 @@ public class DownloadFilesTests {
 
                 if (fileName.endsWith(".csv")) {
                     System.out.println(">>> Найден CSV файл: " + fileName);
+                    csvFileFound = true;
+                    csvFilesCount++;
                     verifyCsvFile(fileData);
 
                     zis.closeEntry();
                 }
             }
-            assertTrue(totalFiles > 0, "ZIP архив не должен быть пустым");
+            System.out.println("Найдено CSV-файлов " + csvFilesCount);
+            assertTrue(csvFileFound, "ZIP архив не должен быть пустым");
 
         } catch (ZipException e) {
             fail("ZIP архив поврежден или пуст: " + e.getMessage());
