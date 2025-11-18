@@ -83,4 +83,42 @@ public class SingleTest {
             $("#output").shouldHave(text("alex22@ya.com"));
         });
     }
+
+    @Tag("singlePropertyTest")
+    @DisplayName("Тест с лямбда шагами")
+    @Test
+    public void severalEmail2Domens2Test() {
+        step("Переход на страницу", () -> {
+            open("/text-box");
+        });
+
+        step("Скрытие рекламы", () -> {
+            executeJavaScript("$('footer').remove();");
+            executeJavaScript("$('#fixedban').remove();");
+        });
+
+        step("Заполнение полного имени", () -> {
+            $("#userName").setValue("Tom Adams");
+        });
+
+        step("Заполнение имейла", () -> {
+            $("#userEmail").setValue("alex22@ya.com");
+        });
+
+        step("Заполнение текущего адреса", () -> {
+            $("#currentAddress").setValue("Moscow");
+        });
+
+        step("Заполнение временного адреса", () -> {
+            $("#permanentAddress").setValue("Miami");
+        });
+
+        step("Клик по кнопке Submit", () -> {
+            $("#submit").click();
+        });
+
+        step("Проверка поля имейл", () -> {
+            $("#output").shouldHave(text("alex2@ya.com"));
+        });
+    }
 }
