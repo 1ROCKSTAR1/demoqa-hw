@@ -32,7 +32,9 @@ dependencies {
     testImplementation 'io.qameta.allure:allure-selenide:2.24.0'
     testImplementation 'com.codeborne:xls-test:1.4.3'
     testImplementation 'com.opencsv:opencsv:5.9'
-    testImplementation("com.fasterxml.jackson.core:jackson-core:2.13.1")
+    testImplementation 'com.fasterxml.jackson.core:jackson-core:2.13.1'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
+    testImplementation 'io.rest-assured:rest-assured:5.5.0'
 }
 
 tasks.withType(Test) {
