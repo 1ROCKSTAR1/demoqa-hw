@@ -9,7 +9,7 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
-public class LoginTests {
+public class ApiTests {
 
     @Test
     public void createUserTest() {
