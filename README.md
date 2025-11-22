@@ -1,4 +1,4 @@
-# 🎯 HomeWork 7 + 8 + 9 + 10
+# 🎯 HomeWork
 
 <div align="center">
 
@@ -9,6 +9,7 @@
 <img src="https://github.com/1ROCKSTAR1/source/blob/main/icons/Allure_Report.svg" width="56" height="56">
 <img src="https://github.com/1ROCKSTAR1/source/blob/main/icons/selenoid.png" width="60" height="50">
 <img src="https://github.com/1ROCKSTAR1/source/blob/main/icons/Jenkins.svg" width="56" height="56">
+<img src="https://github.com/1ROCKSTAR1/source/blob/main/icons/rest-assured.png" width="56" height="56">
 
 </div>
 
@@ -34,6 +35,16 @@
 │   └── 📁 test/
 
 │       ├── 📁 java/
+
+│       │   ├── 📁 api/
+
+│       │   │   ├── 🟢 ApiTests.java
+
+│       │   │   ├── 🟢 UserCreateData.java
+
+│       │   │   ├── 🟢 UserLoginData.java
+
+│       │   │   └── 🟢 UserResponseData.java
 
 │       │   ├── 📁 helpers/
 
