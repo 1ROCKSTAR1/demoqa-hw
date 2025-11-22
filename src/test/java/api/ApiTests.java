@@ -1,6 +1,7 @@
 package api;
 
 import io.restassured.http.ContentType;
+import io.restassured.http.Header;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,13 +12,15 @@ import static org.hamcrest.CoreMatchers.is;
 
 public class ApiTests {
 
+    Header header = new Header("x-api-key", "reqres-free-v1");
+
     @Test
     public void createUserTest() {
         UserCreateData newUser = new UserCreateData("Tom","cleaner");
 
         given()
                 .log().uri()
-                .header("X-API-Key", "reqres-free-v1")
+                .header(header)
                 .log().headers()
                 .body(newUser)
                 .contentType(ContentType.JSON)
@@ -35,7 +38,7 @@ public class ApiTests {
 
         given()
                 .log().uri()
-                .header("X-API-Key", "reqres-free-v1")
+                .header(header)
                 .log().headers()
                 .body(newNegativeUser)
                 .contentType(ContentType.JSON)
@@ -51,7 +54,7 @@ public class ApiTests {
     public void getOneUserTest() {
         given()
                 .log().uri()
-                .header("X-API-Key", "reqres-free-v1")
+                .header(header)
                 .log().headers()
                 .contentType(ContentType.JSON)
                 .when()
@@ -69,7 +72,7 @@ public class ApiTests {
 
         given()
                 .log().uri()
-                .header("X-API-Key", "reqres-free-v1")
+                .header(header)
                 .log().headers()
                 .body(user)
                 .contentType(ContentType.JSON)
@@ -87,7 +90,7 @@ public class ApiTests {
 
         List<UserResponse> users = given().contentType(ContentType.JSON)
                 .log().uri()
-                .header("X-API-Key", "reqres-free-v1")
+                .header(header)
                 .log().headers()
                 .when()
                 .get("https://reqres.in/api/users?page=2")
