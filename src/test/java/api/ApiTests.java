@@ -49,7 +49,7 @@ public class ApiTests {
     }
 
     @Test
-    @DisplayName("НЕГАТИВНЫЙ ТЕСТ. Создание пользователя без должности.")
+    @DisplayName("НЕГАТИВНЫЙ ТЕСТ. Создание пользователя с битым body.")
     public void createFailUserTest() {
         String newNegativeUser = "{ ";
 
