@@ -38,7 +38,7 @@ public class ApiTests {
                 .body(newUser)
                 .contentType(ContentType.JSON)
                 .when()
-                .post(baseURI + basePath + "/users")
+                .post("/users")
                 .then()
                 .log().status()
                 .log().body()
@@ -51,7 +51,7 @@ public class ApiTests {
     @Test
     @DisplayName("НЕГАТИВНЫЙ ТЕСТ. Создание пользователя без должности.")
     public void createFailUserTest() {
-        String newNegativeUser = "{ \"name\": \"Tom\"}";
+        String newNegativeUser = "{ ";
 
         given()
                 .log().uri()
@@ -60,12 +60,13 @@ public class ApiTests {
                 .body(newNegativeUser)
                 .contentType(ContentType.JSON)
                 .when()
-                .post(baseURI + basePath + "/users")
+                .post("/users")
                 .then()
                 .log().status()
                 .log().body()
                 .statusCode(400)
-                .body("message",equalTo("Missing job"));
+                .body("error",equalTo("Bad Request"))
+                .body("message",equalTo("Invalid request format"));
     }
 
     @Test
@@ -77,7 +78,7 @@ public class ApiTests {
                 .log().headers()
                 .contentType(ContentType.JSON)
                 .when()
-                .get(baseURI + basePath + "/users/2")
+                .get("/users/2")
                 .then()
                 .log().status()
                 .log().body()
@@ -100,7 +101,7 @@ public class ApiTests {
                 .body(user)
                 .contentType(ContentType.JSON)
                 .when()
-                .post(baseURI + basePath + "/login")
+                .post("/login")
                 .then()
                 .log().status()
                 .log().body()
@@ -115,12 +116,14 @@ public class ApiTests {
     @DisplayName("Получение списка пользователей")
     public void getAllUsersTest() {
 
-        List<UserResponse> users = given().contentType(ContentType.JSON)
+        List<UserResponse> users = given()
+                .contentType(ContentType.JSON)
                 .log().uri()
                 .header(header)
                 .log().headers()
                 .when()
-                .get(baseURI + basePath + "/users?page=2")
+                .queryParam("page", "2")
+                .get("/users")
                 .then()
                 .log().body()
                 .extract().jsonPath()
