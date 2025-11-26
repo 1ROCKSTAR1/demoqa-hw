@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'io.qameta.allure' version '2.11.2'
+    id "io.freefair.lombok" version "6.0.0-m2"
 }
 
 group 'org.example'
@@ -35,6 +36,8 @@ dependencies {
     testImplementation 'com.fasterxml.jackson.core:jackson-core:2.13.1'
     testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
     testImplementation 'io.rest-assured:rest-assured:5.5.0'
+    testImplementation 'org.assertj:assertj-core:3.27.6'
+    testImplementation 'io.qameta.allure:allure-rest-assured:2.24.0'
 }
 
 tasks.withType(Test) {

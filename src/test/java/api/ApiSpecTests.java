@@ -5,20 +5,20 @@ import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.http.Header;
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.List;
 
-import static io.restassured.RestAssured.*;
+import static com.codeborne.selenide.logevents.SelenideLogger.step;
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.endsWith;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ApiTests {
+public class ApiSpecTests {
 
     @BeforeAll
     public static void setUp() {
@@ -33,7 +33,7 @@ public class ApiTests {
     public void createUserTest() {
         UserCreateData newUser = new UserCreateData("Tom","cleaner");
 
-        UserCreateResponse response = given()
+        UserCreateResponse response = step("Make request", ()-> given()
                 .filter(new AllureRestAssured())
                 .header(header)
                 .log().uri()
@@ -47,11 +47,13 @@ public class ApiTests {
                 .log().status()
                 .log().body()
                 .statusCode(201)
-                .extract().as(UserCreateResponse.class);
+                .extract().as(UserCreateResponse.class));
 
-        assertThat(response.getId(), is(notNullValue()));
-        assertThat(response.getName(), is("Tom"));
-        assertThat(response.getJob(), is("cleaner"));
+        step("Check response", () -> {
+            assertThat(response.getId(), is(notNullValue()));
+            assertThat(response.getName(), is("Tom"));
+            assertThat(response.getJob(), is("cleaner"));
+        });
     }
 
     @Test
@@ -59,7 +61,7 @@ public class ApiTests {
     public void createFailUserTest() {
         String newNegativeUser = "{ ";
 
-        BadRequestFormatResponse response = given()
+        BadRequestFormatResponse response = step("Make request", ()-> given()
                 .filter(new AllureRestAssured())
                 .header(header)
                 .log().uri()
@@ -73,17 +75,19 @@ public class ApiTests {
                 .log().status()
                 .log().body()
                 .statusCode(400)
-                .extract().as(BadRequestFormatResponse.class);
+                .extract().as(BadRequestFormatResponse.class));
 
-        assertThat(response.getError(),equalTo("Bad Request"));
-        assertThat(response.getMessage(),equalTo("Invalid request format"));
+        step("Check response", () -> {
+            assertThat(response.getError(), equalTo("Bad Request"));
+            assertThat(response.getMessage(), equalTo("Invalid request format"));
+        });
     }
 
     @Test
     @DisplayName("Получить пользователя по id")
     public void getOneUserTest() {
 
-        UserResponse response = given()
+        UserResponse response = step("Make request", ()-> given()
                 .filter(new AllureRestAssured())
                 .header(header)
                 .log().uri()
@@ -97,11 +101,13 @@ public class ApiTests {
                 .log().body()
                 .statusCode(200)
                 .extract().jsonPath()
-                .getObject("data", UserResponse.class);
+                .getObject("data", UserResponse.class));
 
-        assertThat(response.getId(), notNullValue());
-        assertThat(response.getEmail(), endsWith("@reqres.in"));
-        assertThat(response.getAvatar(), endsWith(".jpg"));
+        step("Check response", () -> {
+            assertThat(response.getId(), notNullValue());
+            assertThat(response.getEmail(), endsWith("@reqres.in"));
+            assertThat(response.getAvatar(), endsWith(".jpg"));
+        });
     }
 
     @Test
@@ -110,7 +116,7 @@ public class ApiTests {
 
         UserLoginData user = new UserLoginData("eve.holt@reqres.in","cityslicka");
 
-        SuccessfulLoginResponse response = given()
+        SuccessfulLoginResponse response = step("Make request", ()-> given()
                 .filter(new AllureRestAssured())
                 .header(header)
                 .log().uri()
@@ -124,20 +130,22 @@ public class ApiTests {
                 .log().status()
                 .log().body()
                 .statusCode(200)
-                .extract().as(SuccessfulLoginResponse.class);
+                .extract().as(SuccessfulLoginResponse.class));
 
-        assertThat(response.getToken())
-                .isNotNull()
-                .isNotBlank()
-                .hasSizeGreaterThan(10)
-                .matches("^[a-zA-Z0-9]+$");
+        step("Check response", () -> {
+            Assertions.assertThat(response.getToken())
+                    .isNotNull()
+                    .isNotBlank()
+                    .hasSizeGreaterThan(10)
+                    .matches("^[a-zA-Z0-9]+$");
+        });
     }
 
     @Test
     @DisplayName("Получение списка пользователей")
     public void getAllUsersTest() {
 
-        List<UserResponse> users = given()
+        List<UserResponse> users = step("Make request", ()-> given()
                 .filter(new AllureRestAssured())
                 .contentType(ContentType.JSON)
                 .header(header)
@@ -152,10 +160,12 @@ public class ApiTests {
                 .extract().jsonPath()
                 .getList("data", UserResponse.class)
                 .stream()
-                .toList();
+                .toList());
 
-        Assertions.assertTrue(users
-                .stream()
-                .allMatch(a->a.getEmail().endsWith("@reqres.in")));
+        step("Check response", () -> {
+            org.junit.jupiter.api.Assertions.assertTrue(users
+                    .stream()
+                    .allMatch(a -> a.getEmail().endsWith("@reqres.in")));
+        });
     }
 }
