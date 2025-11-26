@@ -2,8 +2,8 @@ package api;
 
 import api.models.*;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -19,6 +19,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.CoreMatchers.endsWith;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+@Tag("ApiSpec")
 public class ApiSpecTests {
 
     @Test
