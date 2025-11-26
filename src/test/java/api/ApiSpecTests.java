@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static api.specs.CreateUserSpec.*;
+import static api.specs.GetUserSpec.getUser;
+import static api.specs.GetUserSpec.getUserResponse;
 import static api.specs.LoginSpec.loginRequestSpec;
 import static api.specs.LoginSpec.loginResponseSpec;
 import static com.codeborne.selenide.logevents.SelenideLogger.step;
@@ -35,21 +38,14 @@ public class ApiSpecTests {
     public void createUserTest() {
         UserCreateData newUser = new UserCreateData("Tom","cleaner");
 
-        UserCreateResponse response = step("Make request", ()-> given()
-                .filter(new AllureRestAssured())
-                .header(header)
-                .log().uri()
-                .log().body()
-                .log().headers()
-                .body(newUser)
-                .contentType(ContentType.JSON)
-                .when()
-                .post("/users")
-                .then()
-                .log().status()
-                .log().body()
-                .statusCode(201)
-                .extract().as(UserCreateResponse.class));
+        UserCreateResponse response = step("Make request", ()->
+                given(createSimpleUser)
+                        .body(newUser)
+                        .when()
+                        .post("/users")
+                        .then()
+                        .spec(createSimpleUserSpecResponse)
+                        .extract().as(UserCreateResponse.class));
 
         step("Check response", () -> {
             assertThat(response.getId(), is(notNullValue()));
@@ -63,21 +59,14 @@ public class ApiSpecTests {
     public void createFailUserTest() {
         String newNegativeUser = "{ ";
 
-        BadRequestFormatResponse response = step("Make request", ()-> given()
-                .filter(new AllureRestAssured())
-                .header(header)
-                .log().uri()
-                .log().body()
-                .log().headers()
-                .body(newNegativeUser)
-                .contentType(ContentType.JSON)
-                .when()
-                .post("/users")
-                .then()
-                .log().status()
-                .log().body()
-                .statusCode(400)
-                .extract().as(BadRequestFormatResponse.class));
+        BadRequestFormatResponse response = step("Make request", ()->
+                given(createSimpleUser)
+                        .body(newNegativeUser)
+                        .when()
+                        .post()
+                        .then()
+                        .spec(createWrongUserSpecResponse)
+                        .extract().as(BadRequestFormatResponse.class));
 
         step("Check response", () -> {
             assertThat(response.getError(), equalTo("Bad Request"));
@@ -89,21 +78,14 @@ public class ApiSpecTests {
     @DisplayName("Получить пользователя по id")
     public void getOneUserTest() {
 
-        UserResponse response = step("Make request", ()-> given()
-                .filter(new AllureRestAssured())
-                .header(header)
-                .log().uri()
-                .log().body()
-                .log().headers()
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/users/2")
-                .then()
-                .log().status()
-                .log().body()
-                .statusCode(200)
-                .extract().jsonPath()
-                .getObject("data", UserResponse.class));
+        UserResponse response = step("Make request", ()->
+                given(getUser)
+                        .when()
+                        .get("/users/2")
+                        .then()
+                        .spec(getUserResponse)
+                        .extract().jsonPath()
+                        .getObject("data", UserResponse.class));
 
         step("Check response", () -> {
             assertThat(response.getId(), notNullValue());
@@ -140,22 +122,17 @@ public class ApiSpecTests {
     @DisplayName("Получение списка пользователей")
     public void getAllUsersTest() {
 
-        List<UserResponse> users = step("Make request", ()-> given()
-                .filter(new AllureRestAssured())
-                .header(header)
-                .log().uri()
-                .log().body()
-                .log().headers()
-                .contentType(ContentType.JSON)
-                .when()
-                .queryParam("page", "2")
-                .get("/users")
-                .then()
-                .log().body()
-                .extract().jsonPath()
-                .getList("data", UserResponse.class)
-                .stream()
-                .toList());
+        List<UserResponse> users = step("Make request", ()->
+                given(getUser)
+                        .when()
+                        .queryParam("page", "2")
+                        .get("/users")
+                        .then()
+                        .log().body()
+                        .extract().jsonPath()
+                        .getList("data", UserResponse.class)
+                        .stream()
+                        .toList());
 
         step("Check response", () -> {
             org.junit.jupiter.api.Assertions.assertTrue(users
