@@ -1,10 +1,6 @@
 package api;
 
 import api.models.*;
-import io.qameta.allure.restassured.AllureRestAssured;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import io.restassured.http.Header;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -24,14 +20,6 @@ import static org.hamcrest.CoreMatchers.endsWith;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ApiSpecTests {
-
-    @BeforeAll
-    public static void setUp() {
-        RestAssured.baseURI = "https://reqres.in";
-        RestAssured.basePath = "/api";
-    }
-
-    Header header = new Header("x-api-key", "reqres-free-v1");
 
     @Test
     @DisplayName("Создать пользователя")
@@ -81,7 +69,7 @@ public class ApiSpecTests {
         UserResponse response = step("Make request", ()->
                 given(getUser)
                         .when()
-                        .get("/users/2")
+                        .get()
                         .then()
                         .spec(getUserResponse)
                         .extract().jsonPath()
@@ -126,7 +114,7 @@ public class ApiSpecTests {
                 given(getUser)
                         .when()
                         .queryParam("page", "2")
-                        .get("/users")
+                        .get()
                         .then()
                         .log().body()
                         .extract().jsonPath()
