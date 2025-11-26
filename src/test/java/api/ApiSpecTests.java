@@ -12,8 +12,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static api.specs.LoginSpec.loginRequestSpec;
+import static api.specs.LoginSpec.loginResponseSpec;
 import static com.codeborne.selenide.logevents.SelenideLogger.step;
-import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.CoreMatchers.endsWith;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -116,21 +118,14 @@ public class ApiSpecTests {
 
         UserLoginData user = new UserLoginData("eve.holt@reqres.in","cityslicka");
 
-        SuccessfulLoginResponse response = step("Make request", ()-> given()
-                .filter(new AllureRestAssured())
-                .header(header)
-                .log().uri()
-                .log().body()
-                .log().headers()
-                .body(user)
-                .contentType(ContentType.JSON)
-                .when()
-                .post("/login")
-                .then()
-                .log().status()
-                .log().body()
-                .statusCode(200)
-                .extract().as(SuccessfulLoginResponse.class));
+        SuccessfulLoginResponse response = step("Make request", ()->
+                given(loginRequestSpec)
+                        .body(user)
+                        .when()
+                        .post("/login")
+                        .then()
+                        .spec(loginResponseSpec)
+                        .extract().as(SuccessfulLoginResponse.class));
 
         step("Check response", () -> {
             Assertions.assertThat(response.getToken())
@@ -147,11 +142,11 @@ public class ApiSpecTests {
 
         List<UserResponse> users = step("Make request", ()-> given()
                 .filter(new AllureRestAssured())
-                .contentType(ContentType.JSON)
                 .header(header)
                 .log().uri()
                 .log().body()
                 .log().headers()
+                .contentType(ContentType.JSON)
                 .when()
                 .queryParam("page", "2")
                 .get("/users")
