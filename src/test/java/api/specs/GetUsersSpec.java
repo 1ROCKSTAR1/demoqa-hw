@@ -10,9 +10,9 @@ import static io.restassured.RestAssured.with;
 import static io.restassured.filter.log.LogDetail.BODY;
 import static io.restassured.filter.log.LogDetail.STATUS;
 
-public class GetUserSpec {
+public class GetUsersSpec {
 
-    public static RequestSpecification getUser = with()
+    public static RequestSpecification getUserList = with()
             .filter(new AllureRestAssured())
             .header("x-api-key", "reqres-free-v1")
             .log().uri()
@@ -20,11 +20,12 @@ public class GetUserSpec {
             .log().headers()
             .contentType(ContentType.JSON)
             .baseUri("https://reqres.in")
-            .basePath("/api/users/2");
+            .basePath("/api/users/");
 
-    public static ResponseSpecification getUserResponse = new ResponseSpecBuilder()
+    public static ResponseSpecification getUserListResponse = new ResponseSpecBuilder()
             .expectStatusCode(200)
             .log(STATUS)
             .log(BODY)
             .build();
 }
+

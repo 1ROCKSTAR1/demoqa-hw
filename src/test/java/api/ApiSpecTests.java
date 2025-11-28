@@ -11,6 +11,8 @@ import java.util.List;
 import static api.specs.CreateUserSpec.*;
 import static api.specs.GetUserSpec.getUser;
 import static api.specs.GetUserSpec.getUserResponse;
+import static api.specs.GetUsersSpec.getUserList;
+import static api.specs.GetUsersSpec.getUserListResponse;
 import static api.specs.LoginSpec.loginRequestSpec;
 import static api.specs.LoginSpec.loginResponseSpec;
 import static com.codeborne.selenide.logevents.SelenideLogger.step;
@@ -112,12 +114,12 @@ public class ApiSpecTests {
     public void getAllUsersTest() {
 
         List<UserResponse> users = step("Make request", ()->
-                given(getUser)
+                given(getUserList)
                         .when()
                         .queryParam("page", "2")
                         .get()
                         .then()
-                        .log().body()
+                        .spec(getUserListResponse)
                         .extract().jsonPath()
                         .getList("data", UserResponse.class)
                         .stream()
