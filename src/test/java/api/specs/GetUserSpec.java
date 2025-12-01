@@ -14,7 +14,7 @@ public class GetUserSpec {
 
     public static RequestSpecification getUser = with()
             .filter(new AllureRestAssured())
-            .header("x-api-key", "reqres-free-v1")
+            .header("x-api-key", "reqres_8b586696dd19457e8900cb0fe6050d2e")
             .log().uri()
             .log().body()
             .log().headers()

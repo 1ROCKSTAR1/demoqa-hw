@@ -26,7 +26,7 @@ public class ApiTests {
         RestAssured.basePath = "/api";
     }
 
-    Header header = new Header("x-api-key", "reqres-free-v1");
+    Header header = new Header("x-api-key", "reqres_8b586696dd19457e8900cb0fe6050d2e");
 
     @Test
     @DisplayName("Создать пользователя")
