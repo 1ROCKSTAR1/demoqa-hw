@@ -15,11 +15,12 @@ import static api.specs.GetUsersSpec.getUserList;
 import static api.specs.GetUsersSpec.getUserListResponse;
 import static api.specs.LoginSpec.loginRequestSpec;
 import static api.specs.LoginSpec.loginResponseSpec;
-import static com.codeborne.selenide.logevents.SelenideLogger.step;
+import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.CoreMatchers.endsWith;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Tag("ApiSpec")
 public class ApiSpecTests {
@@ -126,7 +127,7 @@ public class ApiSpecTests {
                         .toList());
 
         step("Check response", () -> {
-            org.junit.jupiter.api.Assertions.assertTrue(users
+            assertTrue(users
                     .stream()
                     .allMatch(a -> a.getEmail().endsWith("@reqres.in")));
         });
