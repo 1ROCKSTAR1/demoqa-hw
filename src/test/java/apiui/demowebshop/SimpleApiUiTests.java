@@ -2,6 +2,7 @@ package apiui.demowebshop;
 
 import static io.restassured.RestAssured.given;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Cookie;
 
@@ -18,6 +19,7 @@ import static org.hamcrest.core.Is.is;
 public class SimpleApiUiTests extends BaseTest {
 
     @Test
+    @DisplayName("Обычный UI тест с авторизацией")
     public void loginUITest() {
 
         step("Open login page", () ->
@@ -33,6 +35,7 @@ public class SimpleApiUiTests extends BaseTest {
         }
 
     @Test
+    @DisplayName("MIXED тест API+UI авторизация")
     public void loginAPITest() {
 
         step("Get cookie", () -> {
@@ -62,6 +65,7 @@ public class SimpleApiUiTests extends BaseTest {
     }
 
     @Test
+    @DisplayName("API авторизация + API добавление товара в корзину")
     public void addItemToCart() {
 
         String authKey = "NOPCOMMERCE.AUTH";
