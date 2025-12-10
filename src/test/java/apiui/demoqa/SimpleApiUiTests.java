@@ -12,6 +12,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static com.codeborne.selenide.logevents.SelenideLogger.step;
 import static io.restassured.RestAssured.given;
+import static java.lang.String.format;
 
 public class SimpleApiUiTests extends BaseTest {
 
@@ -52,15 +53,66 @@ public class SimpleApiUiTests extends BaseTest {
                     .extract().response();
 
 
-        open("/favicon.ico");
-        getWebDriver().manage().addCookie(new Cookie("userID", auth.path("userId")));
-        getWebDriver().manage().addCookie(new Cookie("expires", auth.path("expires")));
-        getWebDriver().manage().addCookie(new Cookie("token", auth.path("token")));
-    });
+            open("/favicon.ico");
+            getWebDriver().manage().addCookie(new Cookie("userID", auth.path("userId")));
+            getWebDriver().manage().addCookie(new Cookie("expires", auth.path("expires")));
+            getWebDriver().manage().addCookie(new Cookie("token", auth.path("token")));
+        });
 
         step("Go to the site and make an assert", () -> {
-        open("/profile");
-        $("#userName-value").shouldHave(text(login));
-    });
-}
-}
+            open("/profile");
+            $("#userName-value").shouldHave(text(login));
+        });
+    }
+
+        @Test
+        public void addBookApiUiTest () {
+
+            String authData = "{\"userName\":\"Tom99\",\"password\":\"P@ssword1\"}";
+
+
+                Response auth = given()
+                        .contentType(ContentType.JSON)
+                        .body(authData)
+                        .when()
+                        .post("/Account/v1/Login")
+                        .then()
+                        .log().all()
+                        .statusCode(200)
+                        .extract().response();
+
+                String isbn = "9781449365035";
+
+                String bookData = format("{\"userId\":\"%s\",\"collectionOfIsbns\":[{\"isbn\":\"%s\"}]}",
+                        auth.path("userId"),isbn);
+
+            given()
+                    .contentType(ContentType.JSON)
+                    .header("Authorization", "Bearer " + auth.path("token"))
+                    .queryParams("UserId", auth.path("userId"))
+                    .when()
+                    .delete("/BookStore/v1/Books")
+                    .then()
+                    .statusCode(204);
+
+            Response addBook = given()
+                    .contentType(ContentType.JSON)
+                    .body(bookData)
+                    .header("Authorization", "Bearer " + auth.path("token"))
+                    .when()
+                    .post("/Bookstore/v1/Books")
+                    .then()
+                    .log().all()
+                    .statusCode(201)
+                    .extract().response();
+
+                open("/favicon.ico");
+                getWebDriver().manage().addCookie(new Cookie("userID", auth.path("userId")));
+                getWebDriver().manage().addCookie(new Cookie("expires", auth.path("expires")));
+                getWebDriver().manage().addCookie(new Cookie("token", auth.path("token")));
+
+                open("/profile");
+                $("#userName-value").shouldHave(text(login));
+                $("a[href='/profile?book=9781449365035']").shouldHave(text("Speaking JavaScript"));
+        }
+    }
