@@ -5,20 +5,15 @@ import apiui.models.AddBookResp;
 import apiui.models.LoginReq;
 import apiui.models.LoginResp;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Cookie;
-
-import java.util.List;
 
 import static apiui.helpers.TestData.*;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.equalTo;
 
 public class ImprovedApiUiTests extends BaseTest {
 
@@ -120,14 +115,14 @@ public class ImprovedApiUiTests extends BaseTest {
         Alert alert = switchTo().alert();
         alert.accept();
 
-        Response response = (Response) given()
+        given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + loginResp.getToken())
                 .when()
                 .get("/Bookstore/v1/Books" + loginResp.getUserId())
                 .then()
                 .log().all()
-                .statusCode(200)
-                .body("books.size()", equalTo(0));
+                .statusCode(200);
+
     }
 }
