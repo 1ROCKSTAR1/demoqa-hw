@@ -5,6 +5,7 @@ import apiui.models.AddBookResp;
 import apiui.models.LoginReq;
 import apiui.models.LoginResp;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Cookie;
@@ -18,6 +19,7 @@ import static io.restassured.RestAssured.given;
 public class ImprovedApiUiTests extends BaseTest {
 
     @Test
+    @DisplayName("API+UI авторизация/добавление книги/проверка в коллекции")
     public void addBookApiUiTest () {
 
         LoginReq loginReq = new LoginReq(DEFAULT_USERNAME,DEFAULT_PASSWORD);
@@ -65,6 +67,7 @@ public class ImprovedApiUiTests extends BaseTest {
     }
 
     @Test
+    @DisplayName("API+UI авторизация/добавление книги/проверка в коллекции/удаление/проверка")
     public void finalTest() {
 
         LoginReq loginReq = new LoginReq(DEFAULT_USERNAME,DEFAULT_PASSWORD);
@@ -123,6 +126,5 @@ public class ImprovedApiUiTests extends BaseTest {
                 .then()
                 .log().all()
                 .statusCode(200);
-
     }
 }
