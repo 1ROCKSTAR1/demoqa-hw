@@ -1,16 +1,20 @@
 package apiui.demoqa;
 
+import apiui.helpers.ActionsWithBooks;
+import apiui.helpers.AuthorizationApi;
 import apiui.models.AddBookReq;
 import apiui.models.AddBookResp;
 import apiui.models.LoginReq;
 import apiui.models.LoginResp;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static apiui.helpers.TestData.*;
 import static io.restassured.RestAssured.given;
 
+@Tag("ApiUI")
 public class ImprovedApiUiTests extends BaseTest {
 
     ProfilePage profilePage = new ProfilePage();
@@ -57,6 +61,21 @@ public class ImprovedApiUiTests extends BaseTest {
                 .getCookies(loginResp)
                 .navigateToProfile()
                 .checkingAddedBook(loginResp)
+                .deleteBookAndfightWithAlert()
+                .checkingDeletedBook();
+    }
+
+    @Test
+    @DisplayName("Удаление книги из списка в профиле")
+    void finalTest3() {
+        LoginResp responseAfterLogin = AuthorizationApi.logIn(DEFAULT_USERNAME,DEFAULT_PASSWORD);
+        ActionsWithBooks.deleteAllBooks(responseAfterLogin);
+        ActionsWithBooks.addBook(responseAfterLogin, DEFAULT_ISBN);
+
+        profilePage
+                .getCookies(responseAfterLogin)
+                .navigateToProfile()
+                .checkingAddedBook(responseAfterLogin)
                 .deleteBookAndfightWithAlert()
                 .checkingDeletedBook();
     }

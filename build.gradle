@@ -62,3 +62,9 @@ task api_test(type: Test) {
         includeTags("ApiSpec")
     }
 }
+
+task api_ui_test(type: Test) {
+    useJUnitPlatform() {
+        includeTags("ApiUI")
+    }
+}
