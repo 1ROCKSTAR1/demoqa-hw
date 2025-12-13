@@ -2,6 +2,7 @@ package apiui.demoqa;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
@@ -20,6 +21,7 @@ public abstract class BaseTest {
 
     @BeforeAll
     static void setUp() {
+        RestAssured.baseURI = "https://demoqa.com";
         Configuration.baseUrl = System.getProperty("baseUrl","https://demoqa.com");
         Configuration.browser = System.getProperty("browser","chrome");
         Configuration.browserSize = System.getProperty("resolution","1920x1080");

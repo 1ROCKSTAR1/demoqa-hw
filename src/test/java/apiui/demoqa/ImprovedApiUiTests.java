@@ -20,7 +20,7 @@ public class ImprovedApiUiTests extends BaseTest {
     ProfilePage profilePage = new ProfilePage();
 
     @Test
-    @DisplayName("API+UI авторизация/добавление книги/проверка в коллекции/удаление/проверка №2")
+    @DisplayName("API+UI авторизация/добавление книги/проверка в коллекции/удаление/проверка simple")
     public void finalTest2() {
 
         LoginReq loginReq = new LoginReq(DEFAULT_USERNAME,DEFAULT_PASSWORD);
@@ -66,7 +66,7 @@ public class ImprovedApiUiTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Удаление книги из списка в профиле")
+    @DisplayName("API+UI авторизация/добавление книги/проверка в коллекции/удаление/проверка improved")
     void finalTest3() {
         LoginResp responseAfterLogin = AuthorizationApi.logIn(DEFAULT_USERNAME,DEFAULT_PASSWORD);
         ActionsWithBooks.deleteAllBooks(responseAfterLogin);
