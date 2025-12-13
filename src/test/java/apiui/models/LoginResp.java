@@ -17,7 +17,7 @@ public class LoginResp {
         private String expires;
 
         @JsonProperty("created_date")
-        private String createdDate; // Теперь можно использовать camelCase
+        private String createdDate;
 
         @JsonProperty("isActive")
         private boolean isActive;

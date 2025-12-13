@@ -20,7 +20,7 @@ public class AddBookReq {
         private String isbn;
     }
 
-    // Удобный конструктор для одной книги
+    // Конструктор для одной книги
     public AddBookReq(String userId, String isbn) {
         this.userId = userId;
         this.collectionOfIsbns = List.of(new IsbnItem(isbn));
