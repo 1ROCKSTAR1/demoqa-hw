@@ -38,6 +38,7 @@ dependencies {
     testImplementation 'io.rest-assured:rest-assured:5.5.0'
     testImplementation 'org.assertj:assertj-core:3.27.6'
     testImplementation 'io.qameta.allure:allure-rest-assured:2.24.0'
+    testImplementation'org.aeonbits.owner:owner:1.0.12'
 }
 
 tasks.withType(Test) {
@@ -66,5 +67,11 @@ task api_test(type: Test) {
 task api_ui_test(type: Test) {
     useJUnitPlatform() {
         includeTags("ApiUI")
+    }
+}
+
+task owner_test(type: Test) {
+    useJUnitPlatform() {
+        includeTags("Owner test")
     }
 }
