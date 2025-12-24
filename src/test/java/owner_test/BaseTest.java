@@ -14,12 +14,33 @@ public class BaseTest {
     @BeforeAll
     static void setupEnvironment() {
 
-        Configuration.browser = CONFIG.browser();
+        Configuration.browser = CONFIG.browserName();
         Configuration.browserSize = CONFIG.browserSize();
-        Configuration.baseUrl = CONFIG.baseUrl();
+        Configuration.baseUrl = "https://demoqa.com";
+
+
+        if (CONFIG.isRemote()) {
+            Configuration.remote = CONFIG.remoteUrl();
+
+
+            Configuration.browserCapabilities.setCapability("enableVNC", CONFIG.vncEnable());
+            Configuration.browserCapabilities.setCapability("enableVideo", CONFIG.videoEnable());
+            Configuration.browserCapabilities.setCapability("browserVersion", CONFIG.browserVersion());
+
+
+            Configuration.browserCapabilities.setCapability("selenoid:options",
+                    java.util.Map.<String, Object>of(
+                            "enableVNC", CONFIG.vncEnable(),
+                            "enableVideo", CONFIG.videoEnable()
+                    )
+            );
+        } else {
+            Configuration.browserVersion = CONFIG.browserVersion();
+        }
 
         Configuration.pageLoadStrategy = "eager";
-        Configuration.timeout = 5000;
+        Configuration.timeout = 10000;
+        Configuration.pageLoadTimeout = 10000;
     }
 
     @BeforeEach

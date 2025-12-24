@@ -70,8 +70,27 @@ task api_ui_test(type: Test) {
     }
 }
 
-task owner_test(type: Test) {
+task local_test(type: Test) {
     useJUnitPlatform() {
-        includeTags("Owner test")
+        includeTags("local_owner")
+    }
+    systemProperty "env", "local"
+}
+
+task remote_test(type: Test) {
+    useJUnitPlatform() {
+        includeTags("remote_owner")
+    }
+    systemProperty "env", "remote"
+}
+
+test {
+    systemProperties System.getProperties()
+
+    // Если передана системная переменная env, используем её
+    if (System.getProperty("env") != null) {
+        systemProperty "env", System.getProperty("env")
+    } else {
+        systemProperty "env", "local" // значение по умолчанию
     }
 }
