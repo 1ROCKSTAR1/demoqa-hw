@@ -20,6 +20,10 @@ public interface TestConfig extends Config {
     @DefaultValue("https://demoqa.com")
     String url();
 
+    @Key("remoteUrl")
+    @DefaultValue("https://user1:1234@selenoid.autotests.cloud/wd/hub")
+    String remoteUrl();
+
     @Key("is.remote")
     @DefaultValue("false")
     boolean isRemote();

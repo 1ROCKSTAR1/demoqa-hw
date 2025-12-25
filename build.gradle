@@ -4,6 +4,10 @@ plugins {
     id "io.freefair.lombok" version "6.0.0-m2"
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 group 'org.example'
 version '1.0-SNAPSHOT'
 
@@ -39,7 +43,6 @@ dependencies {
     testImplementation 'org.assertj:assertj-core:3.27.6'
     testImplementation 'io.qameta.allure:allure-rest-assured:2.24.0'
     testImplementation'org.aeonbits.owner:owner:1.0.12'
-    //testImplementation("io.github.bonigarcia:webdrivermanager:6.3.3")
 }
 
 tasks.withType(Test) {
@@ -75,14 +78,14 @@ task local_test(type: Test) {
     useJUnitPlatform() {
         includeTags("local_owner")
     }
-    systemProperty "env", "local"
+    //systemProperty "env", "local"
 }
 
 task remote_test(type: Test) {
     useJUnitPlatform() {
         includeTags("remote_owner")
     }
-    systemProperty "env", "remote"
+    //systemProperty "env", "remote"
 }
 
 test {

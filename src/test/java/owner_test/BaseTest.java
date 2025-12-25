@@ -6,6 +6,9 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+import java.util.Map;
 
 public class BaseTest {
 
@@ -14,33 +17,32 @@ public class BaseTest {
     @BeforeAll
     static void setupEnvironment() {
 
-        Configuration.browser = CONFIG.browserName();
-        Configuration.browserSize = CONFIG.browserSize();
-        Configuration.baseUrl = "https://demoqa.com";
-
+        Configuration.pageLoadStrategy = "eager";
+        Configuration.timeout = 10000;
+        Configuration.pageLoadTimeout = 10000;
 
         if (CONFIG.isRemote()) {
-            Configuration.remote = CONFIG.url();
+            Configuration.remote = CONFIG.remoteUrl();
+            Configuration.browser = "firefox";
+            Configuration.browserSize = CONFIG.browserSize();
 
-
-            Configuration.browserCapabilities.setCapability("enableVNC", CONFIG.vncEnable());
-            Configuration.browserCapabilities.setCapability("enableVideo", CONFIG.videoEnable());
-            Configuration.browserCapabilities.setCapability("browserVersion", CONFIG.browserVersion());
-
-
-            Configuration.browserCapabilities.setCapability("selenoid:options",
-                    java.util.Map.<String, Object>of(
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.setCapability("browserName", "firefox");
+            capabilities.setCapability("browserVersion", "124.0");
+            capabilities.setCapability("selenoid:options",
+                    Map.<String, Object>of(
                             "enableVNC", CONFIG.vncEnable(),
                             "enableVideo", CONFIG.videoEnable()
                     )
             );
-        } else {
-            Configuration.browserVersion = CONFIG.browserVersion();
+
+            Configuration.browserCapabilities = capabilities;
         }
 
-        Configuration.pageLoadStrategy = "eager";
-        Configuration.timeout = 10000;
-        Configuration.pageLoadTimeout = 10000;
+        Configuration.browser = CONFIG.browserName();
+        Configuration.baseUrl = CONFIG.url();
+        Configuration.browserSize = CONFIG.browserSize();
+        Configuration.browserVersion = CONFIG.browserVersion();
     }
 
     @BeforeEach
