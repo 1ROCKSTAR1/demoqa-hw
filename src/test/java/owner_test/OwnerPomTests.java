@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import pages.MainLoginRegPage;
 import pages.components.ModalFinishWindowComponent;
 
-@Tag("Owner test")
 @Feature("RegTest with owner")
 public class OwnerPomTests extends BaseTest {
 

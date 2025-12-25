@@ -20,7 +20,7 @@ public class BaseTest {
 
 
         if (CONFIG.isRemote()) {
-            Configuration.remote = CONFIG.remoteUrl();
+            Configuration.remote = CONFIG.url();
 
 
             Configuration.browserCapabilities.setCapability("enableVNC", CONFIG.vncEnable());

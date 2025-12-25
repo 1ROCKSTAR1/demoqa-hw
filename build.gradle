@@ -39,6 +39,7 @@ dependencies {
     testImplementation 'org.assertj:assertj-core:3.27.6'
     testImplementation 'io.qameta.allure:allure-rest-assured:2.24.0'
     testImplementation'org.aeonbits.owner:owner:1.0.12'
+    //testImplementation("io.github.bonigarcia:webdrivermanager:6.3.3")
 }
 
 tasks.withType(Test) {

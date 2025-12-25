@@ -2,10 +2,6 @@ package owner_test;
 
 import org.aeonbits.owner.Config;
 
-@Config.Sources({
-        "classpath:owner.properties",
-        "classpath:${env}.properties"
-})
 public interface TestConfig extends Config {
 
     @Key("browser")
@@ -13,16 +9,16 @@ public interface TestConfig extends Config {
     String browserName();
 
     @Key("version")
-    @DefaultValue("122.0")
+    @DefaultValue("121.0")
     String browserVersion();
 
     @Key("size")
     @DefaultValue("1920x1080")
     String browserSize();
 
-    @Key("remote.url")
-    @DefaultValue("")
-    String remoteUrl();
+    @Key("url")
+    @DefaultValue("https://demoqa.com")
+    String url();
 
     @Key("is.remote")
     @DefaultValue("false")
