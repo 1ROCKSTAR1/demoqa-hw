@@ -15,7 +15,7 @@ public interface TestConfig extends Config {
     String browserVersion();
 
     @Key("size")
-    @DefaultValue("1920x1080")
+    @DefaultValue("1920x1200")
     String browserSize();
 
     @Key("url")
