@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class BaseTest {
 
-    protected static final TestConfig CONFIG = ConfigFactory.create(TestConfig.class);
+    protected static final TestConfig CONFIG = TestConfig.create();
 
     @BeforeAll
     static void setupEnvironment() {
@@ -23,12 +23,11 @@ public class BaseTest {
 
         if (CONFIG.isRemote()) {
             Configuration.remote = CONFIG.remoteUrl();
-            Configuration.browser = "firefox";
             Configuration.browserSize = CONFIG.browserSize();
 
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("browserName", "firefox");
-            capabilities.setCapability("browserVersion", "124.0");
+            capabilities.setCapability("browserVersion", CONFIG.browserVersion());
             capabilities.setCapability("selenoid:options",
                     Map.<String, Object>of(
                             "enableVNC", CONFIG.vncEnable(),
