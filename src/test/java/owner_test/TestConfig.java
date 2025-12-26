@@ -4,9 +4,9 @@ import org.aeonbits.owner.Config;
 import org.aeonbits.owner.ConfigFactory;
 
 @Config.Sources({
-        "system:properties",
-        "system:env",
-        "classpath:${config.profile:local}.properties"  // по умолчанию 'local'
+        "classpath:${config:local}.properties"
+//        "system:properties",
+//        "system:env"// по умолчанию 'local'
 })
 public interface TestConfig extends Config {
 
@@ -31,7 +31,7 @@ public interface TestConfig extends Config {
     String remoteUrl();
 
     @Key("is.remote")
-    @DefaultValue("false")
+   // @DefaultValue("")
     boolean isRemote();
 
     @Key("selenoid.video.enable")
@@ -42,22 +42,22 @@ public interface TestConfig extends Config {
     @DefaultValue("false")
     boolean vncEnable();
 
-    static TestConfig create() {
-        // Проверяем, не установлен ли профиль явно
-        if (System.getProperty("config.profile") == null) {
-            // Создаем временный конфиг с дефолтными настройками
-            TestConfig tempConfig = ConfigFactory.create(TestConfig.class);
-
-            // Логика: если is.remote = true, используем remote профиль
-            if (tempConfig.isRemote()) {
-                System.setProperty("config.profile", "remote");
-            } else {
-                System.setProperty("config.profile", "local");
-            }
-        }
-
-        // Создаем и возвращаем финальный конфиг
-        return ConfigFactory.create(TestConfig.class);
-    }
+//    static TestConfig create() {
+//        // Проверяем, не установлен ли профиль явно
+//        if (System.getProperty("config.profile") == null) {
+//            // Создаем временный конфиг с дефолтными настройками
+//            TestConfig tempConfig = ConfigFactory.create(TestConfig.class);
+//
+//            // Логика: если is.remote = true, используем remote профиль
+//            if (tempConfig.isRemote()) {
+//                System.setProperty("config.profile", "remote");
+//            } else {
+//                System.setProperty("config.profile", "local");
+//            }
+//        }
+//
+//        // Создаем и возвращаем финальный конфиг
+//        return ConfigFactory.create(TestConfig.class);
+//    }
 
 }

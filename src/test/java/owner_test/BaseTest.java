@@ -2,8 +2,10 @@ package owner_test;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.aeonbits.owner.ConfigFactory;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -12,7 +14,10 @@ import java.util.Map;
 
 public class BaseTest {
 
-    protected static final TestConfig CONFIG = TestConfig.create();
+    private static final TestConfig config =
+            ConfigFactory.create(TestConfig.class, System.getProperties());
+
+
 
     @BeforeAll
     static void setupEnvironment() {
@@ -21,32 +26,41 @@ public class BaseTest {
         Configuration.timeout = 10000;
         Configuration.pageLoadTimeout = 10000;
 
-        if (CONFIG.isRemote()) {
-            Configuration.remote = CONFIG.remoteUrl();
-            Configuration.browserSize = CONFIG.browserSize();
+        if (config.isRemote()) {
+            Configuration.remote = config.remoteUrl();
+            Configuration.browserSize = config.browserSize();
+            Configuration.browser = config.browserName();
+            Configuration.browserVersion = config.browserVersion();
+
 
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("browserName", "firefox");
-            capabilities.setCapability("browserVersion", CONFIG.browserVersion());
             capabilities.setCapability("selenoid:options",
                     Map.<String, Object>of(
-                            "enableVNC", CONFIG.vncEnable(),
-                            "enableVideo", CONFIG.videoEnable()
+                            "enableVNC", config.vncEnable(),
+                            "enableVideo", config.videoEnable()
                     )
             );
 
             Configuration.browserCapabilities = capabilities;
         }
 
-        Configuration.browser = CONFIG.browserName();
-        Configuration.baseUrl = CONFIG.url();
-        Configuration.browserSize = CONFIG.browserSize();
-        Configuration.browserVersion = CONFIG.browserVersion();
+        Configuration.browser = config.browserName();
+        Configuration.baseUrl = config.url();
+        Configuration.browserSize = config.browserSize();
+        Configuration.browserVersion = config.browserVersion();
     }
 
     @BeforeEach
     void beforeSingle() {
         SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+
+    @AfterEach
+    void addAttachments() {
+        Attach.screenshotAs("Last screenshot");
+        Attach.pageSource();
+        Attach.browserConsoleLogs();
+        Attach.addVideo();
     }
 }
 

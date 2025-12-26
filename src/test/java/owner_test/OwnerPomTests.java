@@ -17,7 +17,7 @@ public class OwnerPomTests extends BaseTest {
 
     TestData testData = new TestData();
 
-    @Tag("local_owner")
+    @Tag("owner")
     @Test
     @DisplayName("OWNER Автотест с POM для DEMOQA")
     public void minimalDataTestLocal() {
@@ -35,7 +35,7 @@ public class OwnerPomTests extends BaseTest {
                 .checkModalFinishWindow("Mobile", testData.phoneNumber);
     }
 
-    @Tag("remote_owner")
+    @Tag("owner")
     @Test
     @DisplayName("OWNER Автотест с POM для DEMOQA")
     public void minimalDataTestRemote() {
