@@ -54,10 +54,10 @@ public class SingleTest {
             open("/text-box");
         });
 
-        step("Скрытие рекламы", () -> {
-            executeJavaScript("$('footer').remove();");
-            executeJavaScript("$('#fixedban').remove();");
-        });
+//        step("Скрытие рекламы", () -> {
+//            executeJavaScript("$('footer').remove();");
+//            executeJavaScript("$('#fixedban').remove();");
+//        });
 
         step("Заполнение полного имени", () -> {
             $("#userName").setValue("Tom Adams");
@@ -92,10 +92,10 @@ public class SingleTest {
             open("/text-box");
         });
 
-        step("Скрытие рекламы", () -> {
-            executeJavaScript("$('footer').remove();");
-            executeJavaScript("$('#fixedban').remove();");
-        });
+//        step("Скрытие рекламы", () -> {
+//            executeJavaScript("$('footer').remove();");
+//            executeJavaScript("$('#fixedban').remove();");
+//        });
 
         step("Заполнение полного имени", () -> {
             $("#userName").setValue("Tom Adams");
